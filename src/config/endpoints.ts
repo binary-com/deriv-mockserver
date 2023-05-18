@@ -1,11 +1,11 @@
 export namespace Endpoints {
   export const partial_intercepted = [
     "authorize",
+    "get_available_accounts_to_transfer",
     "new_account_real",
     "new_account_virtual",
     "new_account_wallet",
-    "get_account_types",
-    "get_available_accounts_to_transfer",
+    "transfer_between_accounts",
   ] as const;
 
   export const fully_intercepted = ["wallet_migration"] as const;

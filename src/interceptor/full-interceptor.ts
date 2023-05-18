@@ -1,3 +1,4 @@
+import { WebSocket } from "ws";
 import { Endpoints } from "../config/endpoints";
 
 /**
@@ -8,7 +9,8 @@ import { Endpoints } from "../config/endpoints";
  */
 export const fullInterceptor = (
   data: unknown,
-  api_type: (typeof Endpoints.fully_intercepted)[number]
+  api_type: (typeof Endpoints.fully_intercepted)[number],
+  ws: WebSocket
 ) => {
   switch (api_type) {
     case "wallet_migration":

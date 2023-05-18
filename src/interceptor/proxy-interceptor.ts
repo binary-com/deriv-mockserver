@@ -1,11 +1,4 @@
-import WebSocket from "ws";
-// @ts-ignore
-import DerivAPI from "@deriv/deriv-api";
+import { WebSocket } from "ws";
+import { deriv_api } from "../config/deriv-api";
 
-const deriv_ws = new WebSocket(
-  "wss://ws.binaryws.com/websockets/v3?app_id=1089"
-);
-
-const deriv_api = new DerivAPI({ connection: deriv_ws });
-
-export const proxyInterceptor = (data: unknown) => {};
+export const proxyInterceptor = (data: unknown, ws: WebSocket) => {};

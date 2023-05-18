@@ -1,4 +1,6 @@
+import { WebSocket } from "ws";
 import { Endpoints } from "../config/endpoints";
+import { authorize } from "../api/partial/authorize";
 
 /**
  *
@@ -7,16 +9,19 @@ import { Endpoints } from "../config/endpoints";
  * @returns
  */
 export const partialInterceptor = (
-  data: unknown,
-  api_type: (typeof Endpoints.partial_intercepted)[number]
+  data: object,
+  api_type: (typeof Endpoints.partial_intercepted)[number],
+  ws: WebSocket
 ) => {
   switch (api_type) {
     case "authorize":
-    case "get_account_types":
+      return authorize(data, ws);
+
     case "get_available_accounts_to_transfer":
     case "new_account_real":
     case "new_account_virtual":
     case "new_account_wallet":
+    case "transfer_between_accounts":
       return;
   }
 };
