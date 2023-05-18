@@ -1,4 +1,4 @@
-import { RawData } from "ws";
+import { RawData, WebSocket } from "ws";
 import { partialInterceptor } from "./partial-interceptor";
 import { fullInterceptor } from "./full-interceptor";
 import { proxyInterceptor } from "./proxy-interceptor";
@@ -9,20 +9,23 @@ import { Endpoints } from "../config/endpoints";
  * @param data
  * @returns
  */
-export const mockInterceptor = (data: RawData) => {
+export const mockInterceptor = (data: RawData, ws: WebSocket) => {
+  const parsed_data = JSON.parse(data.toString());
   const fully_intercepted_property = Endpoints.fully_intercepted.find(
-    (property) => Object.keys(data).includes(property)
+    (property) => Object.keys(parsed_data).includes(property)
   );
   if (fully_intercepted_property) {
-    return fullInterceptor(data, fully_intercepted_property);
+    return fullInterceptor(parsed_data, fully_intercepted_property, ws);
   }
 
   const partial_intercepted_property = Endpoints.partial_intercepted.find(
-    (property) => Object.keys(data).includes(property)
+    (property) => {
+      return Object.keys(parsed_data).includes(property);
+    }
   );
   if (partial_intercepted_property) {
-    return partialInterceptor(data, partial_intercepted_property);
+    return partialInterceptor(parsed_data, partial_intercepted_property, ws);
   }
 
-  return proxyInterceptor(data);
+  return proxyInterceptor(parsed_data, ws);
 };
