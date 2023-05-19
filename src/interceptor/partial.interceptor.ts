@@ -1,16 +1,17 @@
 import { WebSocket } from "ws";
-import { Endpoints } from "../config/endpoints";
 import { authorize } from "../api/partial/authorize";
 
 /**
- *
- * @param data
- * @param api_type
+ * Intercepts request, sends to DerivWS and modify the response before sending
+ * data to the client.
+ * @param data parsed data
+ * @param api_type endpoint
+ * @param ws websocket instance
  * @returns
  */
 export const partialInterceptor = (
   data: object,
-  api_type: (typeof Endpoints.partial_intercepted)[number],
+  api_type: string,
   ws: WebSocket
 ) => {
   switch (api_type) {
@@ -22,6 +23,7 @@ export const partialInterceptor = (
     case "new_account_virtual":
     case "new_account_wallet":
     case "transfer_between_accounts":
+    default:
       return;
   }
 };
