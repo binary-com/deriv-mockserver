@@ -4,8 +4,9 @@ export type SubscribeRequest = {
   subscribe: number;
 };
 
-export type SubscribeResponse = {
+export interface SubscribeResponse<U extends string>
+  extends Response<SubscribeRequest, U> {
   subscription: {
     id: string;
   };
-} & Response;
+}

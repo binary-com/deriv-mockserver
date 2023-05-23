@@ -1,6 +1,7 @@
-export type Response = {
-  echo_req: {
-    req_id: number;
-  };
-  msg_type: string;
-};
+
+
+export interface Response<T extends object, U extends string> {
+  echo_req: T;
+  msg_type: U;
+  req_id: number;
+}

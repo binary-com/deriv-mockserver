@@ -9,7 +9,7 @@ import { WebSocket } from "ws";
  * @returns
  */
 export const fullInterceptor = (
-  data: unknown,
+  data: object,
   api_type: string,
   ws: WebSocket
 ) => {
