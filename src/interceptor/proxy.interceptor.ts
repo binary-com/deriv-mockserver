@@ -1,5 +1,5 @@
 import { WebSocket } from "ws";
-import { deriv_api } from "../config/deriv-api";
+import { deriv_api } from "../config/deriv-api.config";
 import { getMatchingObject } from "../utils/object.utils";
 import { SubscribeRequest } from "../api/types/subscribe";
 

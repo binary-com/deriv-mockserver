@@ -2,7 +2,7 @@ import { RawData, WebSocket } from "ws";
 import { partialInterceptor } from "./partial.interceptor";
 import { fullInterceptor } from "./full.interceptor";
 import { proxyInterceptor } from "./proxy.interceptor";
-import { Endpoints } from "../config/endpoints";
+import { Endpoints } from "../config/endpoints.config";
 import { getMatchingObject } from "../utils/object.utils";
 
 /**
