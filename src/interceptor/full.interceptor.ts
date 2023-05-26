@@ -8,11 +8,7 @@ import { WebSocket } from "ws";
  * @param ws websocket instance
  * @returns
  */
-export const fullInterceptor = (
-  data: object,
-  api_type: string,
-  ws: WebSocket
-) => {
+export const fullInterceptor = (data: object, api_type: string) => {
   switch (api_type) {
     case "wallet_migration":
       return;

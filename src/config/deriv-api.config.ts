@@ -8,8 +8,14 @@ export type DerivApi = {
   subscribe: <T extends object>(...requestData: unknown[]) => Observable<T>;
 };
 
-export const deriv_ws = new WebSocket(
-  "wss://ws.binaryws.com/websockets/v3?app_id=1089"
-);
+/**
+ * Generates a new websocket connection for each uniquely connected client.
+ * @returns A new WebSocket instance
+ */
+export const createNewDerivWSConnection = () => {
+  const deriv_ws = new WebSocket(
+    "wss://ws.binaryws.com/websockets/v3?app_id=1089"
+  );
 
-export const deriv_api: DerivApi = new DerivAPIBasic({ connection: deriv_ws });
+  return new DerivAPIBasic({ connection: deriv_ws });
+};

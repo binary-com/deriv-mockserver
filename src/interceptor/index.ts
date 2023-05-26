@@ -10,14 +10,14 @@ import { getMatchingObject } from "../utils/object.utils";
  * @param data
  * @returns
  */
-export const mockInterceptor = (data: RawData, ws: WebSocket) => {
+export const mockInterceptor = (data: RawData) => {
   const parsed_data = JSON.parse(data.toString());
   const fully_intercepted_property = getMatchingObject(
     parsed_data,
     Endpoints.fully_intercepted
   );
   if (fully_intercepted_property) {
-    return fullInterceptor(parsed_data, fully_intercepted_property, ws);
+    return fullInterceptor(parsed_data, fully_intercepted_property);
   }
 
   const partial_intercepted_property = getMatchingObject(
@@ -25,8 +25,8 @@ export const mockInterceptor = (data: RawData, ws: WebSocket) => {
     Endpoints.partial_intercepted
   );
   if (partial_intercepted_property) {
-    return partialInterceptor(parsed_data, partial_intercepted_property, ws);
+    return partialInterceptor(parsed_data, partial_intercepted_property);
   }
 
-  return proxyInterceptor(parsed_data, ws);
+  return proxyInterceptor(parsed_data);
 };

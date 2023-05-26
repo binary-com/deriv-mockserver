@@ -9,14 +9,10 @@ import { authorize } from "../api/partial/authorize";
  * @param ws websocket instance
  * @returns
  */
-export const partialInterceptor = (
-  data: object,
-  api_type: string,
-  ws: WebSocket
-) => {
+export const partialInterceptor = (data: object, api_type: string) => {
   switch (api_type) {
     case "authorize":
-      return authorize(data, ws);
+      return authorize(data);
 
     case "get_available_accounts_to_transfer":
     case "new_account_real":
