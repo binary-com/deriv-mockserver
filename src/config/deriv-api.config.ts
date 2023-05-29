@@ -12,7 +12,7 @@ export type DerivApi = {
  * Generates a new websocket connection for each uniquely connected client.
  * @returns A new WebSocket instance
  */
-export const createNewDerivWSConnection = () => {
+export const createNewDerivWSConnection = (): DerivApi => {
   const deriv_ws = new WebSocket(
     "wss://ws.binaryws.com/websockets/v3?app_id=1089"
   );

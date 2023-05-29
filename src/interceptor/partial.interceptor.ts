@@ -1,4 +1,3 @@
-import { WebSocket } from "ws";
 import { authorize } from "../api/partial/authorize";
 
 /**
