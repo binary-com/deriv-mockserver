@@ -1,15 +1,10 @@
-import { WebSocket } from "ws";
+import { InterceptorArgs } from ".";
+import { Endpoints } from "../config/endpoints.config";
 
-/**
- * Intercept requests and fully handles the response to the client without
- * connecting to DerivWS
- * @param data parsed data
- * @param api_type endpoint
- * @param ws websocket instance
- * @returns
- */
-export const fullInterceptor = (data: object, api_type: string) => {
-  switch (api_type) {
+export const fullInterceptor = ({
+  intercepted_property,
+}: InterceptorArgs<(typeof Endpoints.fully_intercepted)[number]>) => {
+  switch (intercepted_property) {
     case "wallet_migration":
       return;
   }

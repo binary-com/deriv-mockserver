@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { createNewDerivWSConnection } from "../config/deriv-api.config";
 
 /**
- * Generate new session to distinguish different users.
+ * Generate new session to distinguish different
  * @param ws
  * @returns
  */

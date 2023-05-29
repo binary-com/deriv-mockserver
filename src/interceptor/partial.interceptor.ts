@@ -1,17 +1,19 @@
+import { InterceptorArgs } from ".";
 import { authorize } from "../api/partial/authorize";
+import { Endpoints } from "../config/endpoints.config";
 
-/**
- * Intercepts request, sends to DerivWS and modify the response before sending
- * data to the client.
- * @param data parsed data
- * @param api_type endpoint
- * @param ws websocket instance
- * @returns
- */
-export const partialInterceptor = (data: object, api_type: string) => {
-  switch (api_type) {
+export type PartialArgs = Omit<
+  InterceptorArgs<(typeof Endpoints.partial_intercepted)[number]>,
+  "intercepted_property"
+>;
+
+export const partialInterceptor = ({
+  intercepted_property,
+  ...forwarded_data
+}: InterceptorArgs<(typeof Endpoints.partial_intercepted)[number]>) => {
+  switch (intercepted_property) {
     case "authorize":
-      return authorize(data);
+      return authorize(forwarded_data);
 
     case "get_available_accounts_to_transfer":
     case "new_account_real":
