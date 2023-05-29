@@ -2,6 +2,7 @@ import { getMatchingObject } from "../utils/object.utils";
 import { SubscribeRequest } from "../api/types/subscribe";
 import client_store from "../stores/client-store";
 import { InterceptorArgs } from ".";
+import { deriv_singleton } from "../config/deriv-api.config";
 
 /**
  * Forward requests and response directly to DerivWS.
@@ -10,22 +11,23 @@ import { InterceptorArgs } from ".";
  */
 export const proxyInterceptor = async ({
   data,
-}: Pick<InterceptorArgs<string>, "data">) => {
+  ws,
+}: Omit<InterceptorArgs<string>, "intercepted_property">) => {
   try {
     const { mock_server_id = "", ...filtered_request } = data;
     const client = client_store.find({ id: mock_server_id });
-
-    if (!client) return;
+    const api_instance = client ? client.deriv_api : deriv_singleton;
+    const ws_instance = client ? client.ws : ws;
 
     if (
       getMatchingObject(data, "subscribe") &&
       (data as SubscribeRequest).subscribe === 1
     ) {
-      const observable = client.deriv_api.subscribe(filtered_request);
-      observable.subscribe((data) => client.ws.send(JSON.stringify(data)));
+      const observable = api_instance.subscribe(filtered_request);
+      observable.subscribe((data) => ws_instance.send(JSON.stringify(data)));
     } else {
-      const response = await client.deriv_api.send(filtered_request);
-      client.ws.send(JSON.stringify(response));
+      const response = await api_instance.send(filtered_request);
+      ws_instance.send(JSON.stringify(response));
     }
   } catch (error) {}
 };

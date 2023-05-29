@@ -14,8 +14,10 @@ export type DerivApi = {
  */
 export const createNewDerivWSConnection = (): DerivApi => {
   const deriv_ws = new WebSocket(
-    "wss://ws.binaryws.com/websockets/v3?app_id=1089"
+    "wss://ws.binaryws.com/websockets/v3?app_id=17044"
   );
 
   return new DerivAPIBasic({ connection: deriv_ws });
 };
+
+export const deriv_singleton = createNewDerivWSConnection();

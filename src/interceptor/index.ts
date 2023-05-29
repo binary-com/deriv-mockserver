@@ -44,5 +44,5 @@ export const mockInterceptor = (data: RawData, ws: WebSocket) => {
     });
   }
 
-  return proxyInterceptor({ data: parsed_data });
+  return proxyInterceptor({ data: parsed_data, ws });
 };
