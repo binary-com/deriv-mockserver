@@ -1,4 +1,4 @@
-import { RawData, WebSocket } from "ws";
+import { RawData } from "ws";
 import { partialInterceptor } from "./partial.interceptor";
 import { fullInterceptor } from "./full.interceptor";
 import { proxyInterceptor } from "./proxy.interceptor";

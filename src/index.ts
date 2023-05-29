@@ -1,17 +1,12 @@
 import { WebSocketServer } from "ws";
-import { v4 as deez } from "uuid";
 import { mockInterceptor } from "./interceptor";
-import { createNewDerivWSConnection } from "./config/deriv-api.config";
 import client_store from "./stores/client-store";
+import { generateNewSession } from "./utils/object.utils";
 
 const wss = new WebSocketServer({ port: 42069 });
 
 wss.on("connection", (ws) => {
-  const new_client = {
-    id: deez(),
-    wss: ws,
-    deriv_api: createNewDerivWSConnection(),
-  };
+  const new_client = generateNewSession(ws);
 
   client_store.add(new_client);
   console.log(

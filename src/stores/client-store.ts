@@ -6,6 +6,7 @@ export type Client = {
   id: string;
   wss: WebSocketClient;
   deriv_api: DerivApi;
+  account_info?: {};
 };
 
 const client_store = new InMemoryStore<Client>([]);
