@@ -17,7 +17,6 @@ export const getMatchingSession = (parsed_data: any): Client => {
   const { mock_id = "" } = parsed_data;
   const matching_client = client_list.find((c) => c.id === mock_id);
   if (!matching_client) {
-    console.log("Creating client: " + mock_id);
     return createClientSession(mock_id);
   }
   return matching_client;
