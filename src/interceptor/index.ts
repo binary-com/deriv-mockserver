@@ -1,32 +1,28 @@
 import { RawData, WebSocket } from "ws";
-import { partialInterceptor } from "./partial.interceptor";
-import { fullInterceptor } from "./full.interceptor";
-import { proxyInterceptor } from "./proxy.interceptor";
-import { Endpoints } from "../config/endpoints";
-import { getMatchingObject } from "../utils/object.utils";
+import { getMatchingKeys, validateRequestData } from "../utils/object.utils";
+import { getMatchingSession } from "../store/client.store";
+import { intercepted_endpoints } from "../config/endpoints";
+import { authorize } from "../api/authorize";
 
-/**
- * Switches which interceptor to use based on object properties sent by the client.
- * @param data
- * @returns
- */
 export const mockInterceptor = (data: RawData, ws: WebSocket) => {
-  const parsed_data = JSON.parse(data.toString());
-  const fully_intercepted_property = getMatchingObject(
-    parsed_data,
-    Endpoints.fully_intercepted
-  );
-  if (fully_intercepted_property) {
-    return fullInterceptor(parsed_data, fully_intercepted_property, ws);
-  }
+  const parsed_data = validateRequestData(data, ws);
+  const client = getMatchingSession(parsed_data);
 
-  const partial_intercepted_property = getMatchingObject(
+  const endpoint_type = getMatchingKeys(
     parsed_data,
-    Endpoints.partial_intercepted
-  );
-  if (partial_intercepted_property) {
-    return partialInterceptor(parsed_data, partial_intercepted_property, ws);
-  }
+    intercepted_endpoints
+  ) as (typeof intercepted_endpoints)[number];
 
-  return proxyInterceptor(parsed_data, ws);
+  switch (endpoint_type) {
+    case "authorize":
+      return authorize(data, ws, client);
+    case "new_account_real":
+    case "new_account_virtual":
+    case "new_account_wallet":
+    case "get_available_accounts_to_transfer":
+    case "transfer_between_accounts":
+    case "wallet_migration":
+    default:
+      break;
+  }
 };
