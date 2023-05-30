@@ -17,25 +17,3 @@ export const getMatchingKeys = (
     return Object.keys(data).find((property) => property === keys);
   }
 };
-
-/**
- *
- * @param data
- * @param ws
- * @returns
- */
-export const validateRequestData = (data: RawData, ws: WebSocket) => {
-  const parsed_data = JSON.parse(data.toString());
-  if (!("mock_id" in parsed_data)) {
-    const error = generateError(
-      {
-        id: "mock_id",
-        code: "MissingMockId",
-        details: "Mock id must be present in each call",
-      },
-      parsed_data
-    );
-    return ws.send(JSON.stringify(error));
-  }
-  return parsed_data;
-};

@@ -13,11 +13,12 @@ export const authorize = async (
   client: Client
 ) => {
   const { deriv_api } = client;
-  const { authorize } = data as AuthorizeRequest;
+  const { mock_id, authorize } = data as AuthorizeRequest;
 
   try {
-    const response = (await deriv_api.send(data)) as AuthorizeResponse;
+    const response = (await deriv_api.send({ authorize })) as AuthorizeResponse;
     client.token = authorize;
+    ws.send(JSON.stringify(response));
   } catch (e) {
     ws.send(JSON.stringify(e));
   }

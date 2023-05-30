@@ -1,4 +1,4 @@
-import { GenericResponse } from "./base";
+import { GenericRequest, GenericResponse } from "./base";
 
 export interface BaseAccount {
   account_id: string;
@@ -32,7 +32,7 @@ export interface Account {
   };
 }
 
-export interface AuthorizeRequest {
+export interface AuthorizeRequest extends GenericRequest {
   authorize: string;
 }
 

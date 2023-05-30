@@ -1,3 +1,7 @@
+export interface GenericRequest {
+  mock_id: string;
+}
+
 export interface GenericResponse<T> {
   echo_req: T & {
     req_id: number;
