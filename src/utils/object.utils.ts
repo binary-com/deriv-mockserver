@@ -1,11 +1,13 @@
+import { RawData, WebSocket } from "ws";
+import { generateError } from "./error.utils";
+
 /**
  * Returns first key match of the keys argument,
  * @param data object to search for matching key
  * @param keys array of keys or a string key
  * @returns first matching key
  */
-
-export const getMatchingObject = (
+export const getMatchingKeys = (
   data: object,
   keys: string | readonly string[] | string[]
 ) => {

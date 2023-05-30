@@ -10,8 +10,14 @@ export type DerivApi = {
   authorize: (requestData: AuthorizeRequest) => Promise<AuthorizeResponse>;
 };
 
-export const deriv_ws = new WebSocket(
-  "wss://ws.binaryws.com/websockets/v3?app_id=1089"
-);
+/**
+ * Creates a new DerivWS Instance
+ * @returns {DerivApi}
+ */
+export const createDerivWSInstance = (): DerivApi => {
+  const deriv_ws = new WebSocket(
+    "wss://ws.binaryws.com/websockets/v3?app_id=1089"
+  );
 
-export const deriv_api: DerivApi = new DerivAPIBasic({ connection: deriv_ws });
+  return new DerivAPIBasic({ connection: deriv_ws });
+};
