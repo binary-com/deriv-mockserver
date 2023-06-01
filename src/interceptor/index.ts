@@ -2,7 +2,7 @@ import { RawData, WebSocket } from "ws";
 import { getMatchingKeys } from "../utils/object.utils";
 import { getMatchingSession } from "../store/client.store";
 import { intercepted_endpoints } from "../config/endpoints";
-import { authorize } from "../api/authorize";
+import { authorize } from "../api/authorize.api";
 import { generateError } from "../utils/error.utils";
 
 export const mockInterceptor = (data: RawData, ws: WebSocket) => {
@@ -28,7 +28,7 @@ export const mockInterceptor = (data: RawData, ws: WebSocket) => {
 
   switch (endpoint_type) {
     case "authorize":
-      return authorize(parsed_data, ws, client);
+      return authorize({ data: parsed_data, ws, client });
     case "new_account_real":
     case "new_account_virtual":
     case "new_account_wallet":
