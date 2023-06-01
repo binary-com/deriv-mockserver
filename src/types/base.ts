@@ -1,3 +1,11 @@
+import { WebSocket } from "ws";
+import { Client } from "../store/client.store";
+
+export interface InterceptedAPIHandler {
+  data: object;
+  ws: WebSocket;
+  client: Client;
+}
 export interface GenericRequest {
   mock_id: string;
 }
