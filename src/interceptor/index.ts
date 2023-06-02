@@ -1,24 +1,11 @@
-import { RawData, WebSocket } from "ws";
+import { WebSocket } from "ws";
 import { getMatchingKeys } from "../utils/object.utils";
 import { getMatchingSession } from "../store/client.store";
 import { intercepted_endpoints } from "../config/endpoints";
 import { authorize } from "../api/authorize.api";
-import { generateError } from "../utils/error.utils";
+import { walletMigration } from "../api/wallet-migration.api";
 
-export const mockInterceptor = (data: RawData, ws: WebSocket) => {
-  const parsed_data = JSON.parse(data.toString());
-  if (!("mock_id" in parsed_data)) {
-    const error = generateError(
-      {
-        id: "mock_id",
-        code: "MissingMockId",
-        details: "Mock id must be present in each call",
-      },
-      parsed_data
-    );
-    return ws.send(JSON.stringify(error));
-  }
-
+export const mockInterceptor = (parsed_data: object, ws: WebSocket) => {
   const client = getMatchingSession(parsed_data);
 
   const endpoint_type = getMatchingKeys(
@@ -35,6 +22,7 @@ export const mockInterceptor = (data: RawData, ws: WebSocket) => {
     case "get_available_accounts_to_transfer":
     case "transfer_between_accounts":
     case "wallet_migration":
+      return walletMigration({ data: parsed_data, ws, client });
     default:
       break;
   }

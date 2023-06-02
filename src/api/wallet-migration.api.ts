@@ -68,15 +68,15 @@ export const walletMigration = ({
         )
       );
     }
-
-    return ws.send(
-      JSON.stringify(
-        generateWalletMigrationResponse({
-          data,
-          wallet_accounts,
-          status: "eligible",
-        })
-      )
-    );
   }
+
+  return ws.send(
+    JSON.stringify(
+      generateWalletMigrationResponse({
+        data,
+        wallet_accounts,
+        status: "ineligible",
+      })
+    )
+  );
 };
