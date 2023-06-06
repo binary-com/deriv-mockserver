@@ -1,3 +1,4 @@
+import { AccountDTO } from "../dto/account.dto";
 import { MappedAccount } from "../store/account.store";
 import { Account } from "../types/authorise";
 import { InterceptedAPIHandler } from "../types/base";
@@ -12,7 +13,7 @@ const generateWalletMigrationResponse = ({
   wallet_accounts,
   status,
 }: Pick<InterceptedAPIHandler, "data"> & {
-  wallet_accounts: Account[] | undefined;
+  wallet_accounts: AccountDTO[] | undefined;
   status: WalletMigrationStatus;
 }) => {
   const wallet_migration =

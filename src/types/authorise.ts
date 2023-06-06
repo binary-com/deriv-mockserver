@@ -1,4 +1,18 @@
 import { GenericRequest, GenericResponse } from "./base";
+
+export enum AccountCategory {
+  Trading = "trading",
+  Wallet = "wallet",
+}
+
+export enum Platform {
+  DerivEZ = "derivez",
+  DTrader = "dtrader",
+  DWallet = "dwallet",
+  DXTrade = "dxtrade",
+  MT5 = "mt5",
+}
+
 export interface AuthorizeResponse extends GenericResponse<AuthorizeRequest> {
   authorize: {
     account_list: Account[];
@@ -25,7 +39,7 @@ export interface AuthorizeResponse extends GenericResponse<AuthorizeRequest> {
 }
 
 export interface Account {
-  account_category: "trading" | "wallet";
+  account_category: AccountCategory;
   account_type: string;
   created_at: number;
   currency: string;
@@ -39,7 +53,7 @@ export interface Account {
 
 interface LinkedAccount {
   loginid: string;
-  platform: "derivez" | "dtrade" | "dwallet" | "dxtrade" | "mt5";
+  platform: Platform;
 }
 export interface AuthorizeRequest extends GenericRequest {
   authorize: string;

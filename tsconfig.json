@@ -12,6 +12,7 @@
     "incremental": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "strictPropertyInitialization": false,
     "strict": true
   }
 }

@@ -1,3 +1,4 @@
+import { AccountDTO } from "../dto/account.dto";
 import { Account } from "./authorise";
 import { GenericRequest, GenericResponse } from "./base";
 export interface WalletRequest extends GenericRequest {
@@ -15,6 +16,6 @@ export interface WalletMigrationResponse
   extends GenericResponse<WalletRequest> {
   wallet_migration: {
     status: WalletMigrationStatus;
-    account_list?: Account[];
+    account_list?: AccountDTO[];
   };
 }

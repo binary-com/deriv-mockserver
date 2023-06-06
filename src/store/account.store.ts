@@ -1,8 +1,8 @@
-import { Account } from "../types/authorise";
+import { AccountDTO } from "../dto/account.dto";
 
 export type MockedAccount = {
   mock_id: string;
-  accounts: Account[];
+  accounts: AccountDTO[];
 };
 
 const mocked_account: MockedAccount[] = [];

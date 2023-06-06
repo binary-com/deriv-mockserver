@@ -14,7 +14,7 @@ export type Error = {
  */
 export const generateError = (
   error: Error,
-  req: any
+  req: any = {}
 ): ErrorResponse<typeof req> => {
   const { id, code, details } = error;
 
