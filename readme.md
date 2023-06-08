@@ -24,11 +24,12 @@ To push your custom data to the mock server, you will need to add the `generate_
 
 ```json
 {
-  "generate_mock": "1"
+  "generate_mock": "1",
+  "action": "create" // create | update | delete
 }
 ```
 
-Adding this will allow the mock server to accept mock data directly through this call without too much check. Of course, schema validation is still in place.
+Adding this will allow the mock server to accept mock data directly through this call without heavy validation. Of course, schema level validation is still in place. This allows 
 
 List of generator endpoints:
 

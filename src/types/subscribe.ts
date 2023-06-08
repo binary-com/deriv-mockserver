@@ -1,11 +1,11 @@
-import type { GenericResponse } from "./base";
+import type { GenericResponse } from './base';
 
 export type SubscribeRequest = {
-  subscribe: number;
+    subscribe: number;
 };
 
 export type SubscribeResponse<T> = {
-  subscription: {
-    id: string;
-  };
+    subscription: {
+        id: string;
+    };
 } & GenericResponse<T>;
