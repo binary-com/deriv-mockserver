@@ -1,17 +1,18 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2021",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "incremental": true,
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "strict": true
-  }
+    "compilerOptions": {
+        "module": "commonjs",
+        "declaration": true,
+        "removeComments": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "ES2021",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "incremental": true,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "strictPropertyInitialization": false,
+        "strict": true
+    }
 }
