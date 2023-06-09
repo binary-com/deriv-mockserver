@@ -1,4 +1,4 @@
-import { AccountDTO } from '../dto/account.dto';
+import { AccountDTO } from '../schema/account.schema';
 import { MappedAccount } from '../store/account.store';
 import { InterceptedAPIHandler } from '../types/base';
 import { WalletMigrationResponse, WalletMigrationStatus, WalletRequest } from '../types/wallet-migration';

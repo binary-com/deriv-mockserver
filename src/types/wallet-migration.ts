@@ -1,6 +1,11 @@
-import { AccountDTO } from '../dto/account.dto';
-import { Account } from './authorise';
+import { Account } from '../schema/account.schema';
+import { WalletMigrationConfig } from '../schema/wallet.schema';
 import { GenericRequest, GenericResponse } from './base';
+
+export interface WalletMigrationConfigRequest extends GenericRequest {
+    wallet_migration_config: WalletMigrationConfig;
+}
+
 export interface WalletRequest extends GenericRequest {
     wallet_migration: 'status';
 }
@@ -16,6 +21,6 @@ export enum WalletMigrationStatus {
 export interface WalletMigrationResponse extends GenericResponse<WalletRequest> {
     wallet_migration: {
         status: WalletMigrationStatus;
-        account_list?: AccountDTO[];
+        account_list?: Account[];
     };
 }

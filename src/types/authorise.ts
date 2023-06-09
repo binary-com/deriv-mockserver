@@ -1,3 +1,4 @@
+import { Account, LinkedAccount } from '../schema/account.schema';
 import { GenericRequest, GenericResponse } from './base';
 
 export enum AccountCategory {
@@ -38,23 +39,6 @@ export interface AuthorizeResponse extends GenericResponse<AuthorizeRequest> {
     };
 }
 
-export interface Account {
-    account_category: AccountCategory;
-    account_type: string;
-    created_at: number;
-    currency: string;
-    excluded_until?: number;
-    is_disabled: 0 | 1;
-    is_virtual: 0 | 1;
-    landing_company_name: string;
-    linked_to: LinkedAccount[];
-    loginid: string;
-}
-
-interface LinkedAccount {
-    loginid: string;
-    platform: Platform;
-}
 export interface AuthorizeRequest extends GenericRequest {
     authorize: string;
 }

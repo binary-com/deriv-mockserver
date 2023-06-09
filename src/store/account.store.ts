@@ -1,4 +1,4 @@
-import { AccountDTO } from '../dto/account.dto';
+import { AccountDTO } from '../schema/account.schema';
 
 export type MockedAccount = {
     mock_id: string;
