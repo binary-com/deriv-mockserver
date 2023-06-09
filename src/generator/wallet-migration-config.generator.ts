@@ -11,14 +11,21 @@ export const walletMigrationConfig = async ({ data, ws, client }: InterceptedAPI
 
     const wallet_config = { status, has_real_usd_account, has_p2p_account, has_used_pa_last_3months, is_payment_agent };
 
-    console.log(wallet_config);
     try {
         wallet_migration_config_schema.parse(wallet_config);
         client.wallet_migration_config = wallet_config;
+
+        return ws.send(
+            JSON.stringify({
+                wallet_migration_config: 1,
+                echo_req: data,
+                msg_type: 'wallet_migration_config',
+            })
+        );
     } catch (e) {
         if (e instanceof ZodError) {
             return handleGenericError('invalid_input', e.issues[0].message, ws, data);
         }
-        handleGenericError('invalid_input', (e as Error)?.message || '', ws, data);
+        return handleGenericError('invalid_input', (e as Error)?.message || '', ws, data);
     }
 };

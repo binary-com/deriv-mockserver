@@ -1,8 +1,8 @@
-import { AccountDTO } from '../schema/account.schema';
+import { Account } from '../schema/account.schema';
 
 export type MockedAccount = {
     mock_id: string;
-    accounts: AccountDTO[];
+    accounts: Account[];
 };
 
 const mocked_account: MockedAccount[] = [];
