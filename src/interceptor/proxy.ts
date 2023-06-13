@@ -1,18 +1,24 @@
-import { Client } from "../store/client.store";
-import { GenericRequest } from "../types/base";
+import { GenericRequest, InterceptedAPIHandler } from '../types/base';
+import { getMatchingKeys } from '../utils/object.utils';
 
-export const proxyConnection = async (
-  data: object,
-  ws: WebSocket,
-  client: Client
-) => {
-  const { deriv_api } = client;
-  const { mock_id, ...forwarded_data } = data as GenericRequest;
+export const proxyConnection = async ({ data, ws, client }: InterceptedAPIHandler) => {
+    const { deriv_api } = client;
+    const { mock_id, ...forwarded_data } = data as GenericRequest;
+    const is_subscribe = getMatchingKeys(data, ['subscribe']) === 'subscribe';
 
-  try {
-    const response = await deriv_api.send({ ...forwarded_data });
-    ws.send(JSON.stringify(response));
-  } catch (e) {
-    ws.send(JSON.stringify(e));
-  }
+    if (is_subscribe) {
+        try {
+            const subscription = await deriv_api.subscribe({ ...forwarded_data });
+            subscription.subscribe(data => ws.send(JSON.stringify(data)));
+        } catch (e) {
+            ws.send(JSON.stringify(e));
+        }
+    } else {
+        try {
+            const response = await deriv_api.send({ ...forwarded_data });
+            ws.send(JSON.stringify(response));
+        } catch (e) {
+            ws.send(JSON.stringify(e));
+        }
+    }
 };

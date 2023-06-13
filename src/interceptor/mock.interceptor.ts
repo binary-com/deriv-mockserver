@@ -4,6 +4,7 @@ import { Client } from '../store/client.store';
 import { intercepted_endpoints } from '../config/intercepted-endpoints.config';
 import { authorize } from '../api/authorize.api';
 import { walletMigration } from '../api/wallet-migration.api';
+import { proxyConnection } from './proxy';
 
 export const mockInterceptor = async (parsed_data: object, ws: WebSocket, client: Client) => {
     const endpoint_type = getMatchingKeys(parsed_data, intercepted_endpoints) as (typeof intercepted_endpoints)[number];
@@ -19,6 +20,6 @@ export const mockInterceptor = async (parsed_data: object, ws: WebSocket, client
         case 'wallet_migration':
             return await walletMigration({ data: parsed_data, ws, client });
         default:
-            break;
+            return await proxyConnection({ data: parsed_data, ws, client });
     }
 };
