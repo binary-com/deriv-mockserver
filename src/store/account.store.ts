@@ -1,19 +1,19 @@
 import { Account } from '../schema/account.schema';
 
 export type MockedAccount = {
-    mock_id: string;
+    session_id: string;
     accounts: Account[];
 };
 
 const mocked_account: MockedAccount[] = [];
 
-export namespace MappedAccount {
+export namespace AccountStore {
     export const add = (new_account: MockedAccount) => {
-        let matching_account = mocked_account.find(acc => acc.mock_id === new_account.mock_id);
+        let matching_account = mocked_account.find(acc => acc.session_id === new_account.session_id);
         if (!matching_account) {
-            mocked_account.push;
+            mocked_account.push(new_account);
         }
     };
 
-    export const get = (mock_id: string) => mocked_account.find(acc => acc.mock_id === mock_id)?.accounts;
+    export const get = (session_id: string) => mocked_account.find(acc => acc.session_id === session_id)?.accounts;
 }

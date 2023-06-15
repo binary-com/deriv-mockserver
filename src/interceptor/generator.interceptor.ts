@@ -1,18 +1,19 @@
-import { WebSocket } from 'ws';
-import { Client } from '../store/client.store';
-import { getMatchingKeys } from '../utils/object.utils';
 import { generator_endpoints } from '../config/generator-endpoints.config';
 import { handleGenericError } from '../utils/error.utils';
+import { getMatchingKeys } from '../utils/object.utils';
 import { walletMigrationConfig } from '../generator/wallet-migration-config.generator';
+import { InterceptedAPIHandler } from '../types/base';
 
-export const generatorInterceptor = (parsed_data: object, ws: WebSocket, client: Client) => {
-    const endpoint_type = getMatchingKeys(parsed_data, generator_endpoints) as (typeof generator_endpoints)[number];
+export const generatorInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
+    const { ws, data } = intercepted_args;
+    const endpoint_type = getMatchingKeys(data, generator_endpoints) as (typeof generator_endpoints)[number];
+
     switch (endpoint_type) {
         case 'account':
             return;
         case 'wallet_migration_config':
-            return walletMigrationConfig({ data: parsed_data, ws, client });
+            return walletMigrationConfig(intercepted_args);
         default:
-            return handleGenericError('invalid_input', 'Missing endpoint type.', ws, parsed_data);
+            return handleGenericError('invalid_input', 'Missing endpoint type.', ws, data);
     }
 };
