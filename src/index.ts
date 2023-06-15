@@ -1,7 +1,7 @@
 import { WebSocketServer } from 'ws';
 import { generatorInterceptor, mockInterceptor } from './interceptor';
 import { handleGenericError } from './utils/error.utils';
-import { getMatchingSession } from './store/client.store';
+import { getMatchingSession } from './store/session.store';
 import { ParsedRequestData } from './types/base';
 
 const wss = new WebSocketServer({ port: 42069 });
@@ -11,15 +11,15 @@ wss.on('connection', ws => {
         try {
             const parsed_data = JSON.parse(data.toString()) as ParsedRequestData;
             console.log(parsed_data);
-            if (!('mock_id' in parsed_data)) {
-                return handleGenericError('mock_id', 'Mock id must be present in each call', ws, parsed_data);
+            if (!('session_id' in parsed_data)) {
+                return handleGenericError('session_id', 'Session id must be present in each call', ws, parsed_data);
             }
 
-            const client = getMatchingSession(parsed_data);
+            const session = getMatchingSession(parsed_data);
             if ('generate_mock' in parsed_data) {
-                return generatorInterceptor({ data: parsed_data, ws, client });
+                return generatorInterceptor({ data: parsed_data, ws, session });
             }
-            return mockInterceptor({ data: parsed_data, ws, client });
+            return mockInterceptor({ data: parsed_data, ws, session });
         } catch (e) {
             handleGenericError('invalid_input', (e as Error)?.message || '', ws);
         }

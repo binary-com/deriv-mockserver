@@ -4,7 +4,7 @@ export const getAccountStatus = ({ data, ws }: InterceptedAPIHandler) => {
     const { req_id } = data;
 
     const response = {
-        echo_req: { get_account_status: 1, req_id },
+        echo_req: data,
         get_account_status: {
             authentication: {
                 attempts: { count: 0, history: [], latest: null },

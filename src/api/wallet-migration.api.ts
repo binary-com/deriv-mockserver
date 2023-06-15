@@ -3,14 +3,14 @@ import { AccountStore } from '../store/account.store';
 import { InterceptedAPIHandler } from '../types/base';
 import { WalletMigrationResponse, WalletMigrationStatus, WalletRequest } from '../types/wallet-migration';
 
-export const walletMigration = ({ data, ws, client }: InterceptedAPIHandler) => {
-    const client_account_list = AccountStore.get(client.mock_id);
+export const walletMigration = ({ data, ws, session }: InterceptedAPIHandler) => {
+    const client_account_list = AccountStore.get(session.session_id);
     const wallet_accounts = client_account_list?.filter(w => w.account_category === 'wallet');
     let wallet_migration_status = WalletMigrationStatus.InEligible;
 
-    if (client.wallet_migration_config) {
+    if (session.wallet_migration_config) {
         const { status, has_real_usd_account, has_p2p_account, has_used_pa_last_3months, is_payment_agent } =
-            client.wallet_migration_config;
+            session.wallet_migration_config;
 
         if (status) {
             wallet_migration_status = status;

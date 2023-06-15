@@ -1,6 +1,6 @@
 import { InterceptedAPIHandler } from '../types/base';
 
-export const transaction = ({ data, ws, client }: InterceptedAPIHandler) => {
+export const transaction = ({ data, ws, session }: InterceptedAPIHandler) => {
     const { req_id } = data;
 
     const response = {

@@ -4,7 +4,7 @@ import { InterceptedAPIHandler } from '../types/base';
 import { Account } from '../schema/account.schema';
 
 export const authorize = async ({ data, ws }: InterceptedAPIHandler) => {
-    const { mock_id, req_id } = data as AuthorizeRequest;
+    const { authorize, session_id, req_id } = data as AuthorizeRequest;
 
     const accounts: Account[] = [
         {
@@ -111,7 +111,7 @@ export const authorize = async ({ data, ws }: InterceptedAPIHandler) => {
     };
 
     AccountStore.add({
-        mock_id: mock_id,
+        session_id: session_id,
         accounts: accounts,
     });
     ws.send(JSON.stringify(response));

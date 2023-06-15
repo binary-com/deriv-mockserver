@@ -13,10 +13,10 @@ export namespace File {
         }
     };
 
-    export const serializeEntity = (mock_id: string, entity_name: string, entity_data: object) => {
+    export const serializeEntity = (session_id: string, entity_name: string, entity_data: object) => {
         try {
             createMockFolder();
-            const path_to_file = path.resolve(path.join(__dirname, mock_id, entity_name));
+            const path_to_file = path.resolve(path.join(__dirname, session_id, entity_name));
             fs.writeFileSync(path_to_file, JSON.stringify(entity_data));
         } catch (e) {
             console.error('An error occured: ' + e);

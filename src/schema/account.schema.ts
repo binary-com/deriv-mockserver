@@ -29,5 +29,6 @@ export const account_schema = z
         loginid: z.string().regex(/^(MX|MXW|MF|MFW|VRTC|VRW|MLT|MLTW|CR|CRW|FOG)[0-9]+$/),
         linked_account: linked_account_schema,
         trading: z.any().optional(),
+        token: z.string().optional(),
     })
     .partial();
