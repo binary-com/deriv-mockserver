@@ -7,7 +7,7 @@ export type MockedAccount = {
 
 const mocked_account: MockedAccount[] = [];
 
-export namespace MappedAccount {
+export namespace AccountStore {
     export const add = (new_account: MockedAccount) => {
         let matching_account = mocked_account.find(acc => acc.mock_id === new_account.mock_id);
         if (!matching_account) {

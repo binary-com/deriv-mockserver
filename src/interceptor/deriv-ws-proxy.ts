@@ -1,7 +1,7 @@
 import { GenericRequest, InterceptedAPIHandler } from '../types/base';
 import { getMatchingKeys } from '../utils/object.utils';
 
-export const proxyConnection = async ({ data, ws, client }: InterceptedAPIHandler) => {
+export const derivWSProxy = async ({ data, ws, client }: InterceptedAPIHandler) => {
     const { deriv_api } = client;
     const { mock_id, ...forwarded_data } = data as GenericRequest;
     const is_subscribe = getMatchingKeys(data, ['subscribe']) === 'subscribe';

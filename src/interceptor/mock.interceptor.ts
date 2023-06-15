@@ -1,25 +1,43 @@
-import { WebSocket } from 'ws';
 import { getMatchingKeys } from '../utils/object.utils';
-import { Client } from '../store/client.store';
 import { intercepted_endpoints } from '../config/intercepted-endpoints.config';
 import { authorize } from '../api/authorize.api';
+import { transaction } from '../api/transaction.api';
 import { walletMigration } from '../api/wallet-migration.api';
-import { proxyConnection } from './proxy';
+import { derivWSProxy } from './deriv-ws-proxy';
+import { statement } from '../api/statement.api';
+import { InterceptedAPIHandler } from '../types/base';
+import { getAccountStatus } from '../api/get-account-status.api';
 
-export const mockInterceptor = async (parsed_data: object, ws: WebSocket, client: Client) => {
-    const endpoint_type = getMatchingKeys(parsed_data, intercepted_endpoints) as (typeof intercepted_endpoints)[number];
+export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
+    const endpoint_type = getMatchingKeys(
+        intercepted_args.data,
+        intercepted_endpoints
+    ) as (typeof intercepted_endpoints)[number];
 
     switch (endpoint_type) {
         case 'authorize':
-            return await authorize({ data: parsed_data, ws, client });
+            return await authorize(intercepted_args);
+        case 'transaction':
+            return await transaction(intercepted_args);
+        case 'statement':
+            return await statement(intercepted_args);
+        case 'get_account_status':
+            return await getAccountStatus(intercepted_args);
+        case 'get_settings':
+        case 'topup_virtual':
+        case 'balance':
+        case 'forget_all':
+        case 'portfolio':
+        case 'proposal_open_contract':
         case 'new_account_real':
         case 'new_account_virtual':
         case 'new_account_wallet':
         case 'get_available_accounts_to_transfer':
         case 'transfer_between_accounts':
+            return;
         case 'wallet_migration':
-            return await walletMigration({ data: parsed_data, ws, client });
+            return await walletMigration(intercepted_args);
         default:
-            return await proxyConnection({ data: parsed_data, ws, client });
+            return await derivWSProxy(intercepted_args);
     }
 };

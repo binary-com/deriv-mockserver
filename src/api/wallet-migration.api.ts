@@ -1,10 +1,10 @@
 import { Account } from '../schema/account.schema';
-import { MappedAccount } from '../store/account.store';
+import { AccountStore } from '../store/account.store';
 import { InterceptedAPIHandler } from '../types/base';
 import { WalletMigrationResponse, WalletMigrationStatus, WalletRequest } from '../types/wallet-migration';
 
 export const walletMigration = ({ data, ws, client }: InterceptedAPIHandler) => {
-    const client_account_list = MappedAccount.get(client.mock_id);
+    const client_account_list = AccountStore.get(client.mock_id);
     const wallet_accounts = client_account_list?.filter(w => w.account_category === 'wallet');
     let wallet_migration_status = WalletMigrationStatus.InEligible;
 
@@ -46,11 +46,11 @@ const generateWalletMigrationResponse = ({
 
     const reponse: WalletMigrationResponse = {
         echo_req: {
-            req_id: 1,
             ...(data as WalletRequest),
         },
         wallet_migration,
         msg_type: 'wallet_migration',
+        req_id: data.req_id,
     };
 
     return reponse;
