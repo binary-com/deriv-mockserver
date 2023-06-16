@@ -9,19 +9,27 @@ export namespace File {
                 fs.mkdir(mock_data_folder, () => console.log('mock-data folder created'))
             );
         } catch (e) {
-            console.error('An error occured creating mock-data folder ' + e);
+            console.error('An error occured creating mock-data folder: ' + e);
         }
     };
 
-    export const serializeEntity = (session_id: string, entity_name: string, entity_data: object) => {
+    export const serializeEntity = (folder_path: string, entity_name: string, entity_data: object) => {
         try {
             createMockFolder();
-            const path_to_file = path.resolve(path.join(__dirname, session_id, entity_name));
+            const path_to_file = path.resolve(path.join(__dirname, folder_path, entity_name));
             fs.writeFileSync(path_to_file, JSON.stringify(entity_data));
         } catch (e) {
-            console.error('An error occured: ' + e);
+            console.error(`An error occured serializing entity: ${entity_name}` + e);
         }
     };
 
-    export const loadEntity = (entity_name: string) => {};
+    export const loadEntity = <T extends object>(folder_path: string, entity_name: string) => {
+        try {
+            const path_to_file = path.resolve(path.join(__dirname, folder_path, entity_name));
+            const file_data = fs.readFileSync(path_to_file, 'utf-8');
+            return JSON.parse(file_data) as T;
+        } catch (e) {
+            console.error(`An error occured loading entity: ${entity_name}` + e);
+        }
+    };
 }

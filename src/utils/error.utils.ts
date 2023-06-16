@@ -25,6 +25,7 @@ export const generateErrorResponse = (error: Error, req: any = {}): ErrorRespons
             },
         },
         msg_type: id,
+        req_id: req.req_id,
     };
 };
 

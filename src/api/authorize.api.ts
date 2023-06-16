@@ -1,10 +1,9 @@
 import { AuthorizeRequest } from '../types/authorize';
-import { AccountStore } from '../store/account.store';
 import { InterceptedAPIHandler } from '../types/base';
 import { Account } from '../schema/account.schema';
 
-export const authorize = async ({ data, ws }: InterceptedAPIHandler) => {
-    const { authorize, session_id, req_id } = data as AuthorizeRequest;
+export const authorize = async ({ data, ws, session }: InterceptedAPIHandler) => {
+    const { req_id } = data as AuthorizeRequest;
 
     const accounts: Account[] = [
         {
@@ -85,7 +84,7 @@ export const authorize = async ({ data, ws }: InterceptedAPIHandler) => {
             balance: 10046.18,
             country: 'id',
             currency: 'USD',
-            email: 'yashim+chicken1@deriv.com',
+            email: 'a@a.com',
             fullname: '  ',
             is_virtual: 1,
             landing_company_fullname: 'Deriv Limited',
@@ -100,7 +99,7 @@ export const authorize = async ({ data, ws }: InterceptedAPIHandler) => {
             scopes: ['read', 'trade', 'trading_information', 'payments', 'admin'],
             trading: {},
             upgradeable_landing_companies: ['svg'],
-            user_id: 10930015,
+            user_id: 90930015,
         },
         echo_req: {
             authorize: '<not shown>',
@@ -110,9 +109,6 @@ export const authorize = async ({ data, ws }: InterceptedAPIHandler) => {
         req_id,
     };
 
-    AccountStore.add({
-        session_id: session_id,
-        accounts: accounts,
-    });
+    session.addAccounts(accounts);
     ws.send(JSON.stringify(response));
 };
