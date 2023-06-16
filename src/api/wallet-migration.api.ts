@@ -1,11 +1,9 @@
 import { Account } from '../schema/account.schema';
-import { AccountStore } from '../store/account.store';
 import { InterceptedAPIHandler } from '../types/base';
 import { WalletMigrationResponse, WalletMigrationStatus, WalletRequest } from '../types/wallet-migration';
 
 export const walletMigration = ({ data, ws, session }: InterceptedAPIHandler) => {
-    const client_account_list = AccountStore.get(session.session_id);
-    const wallet_accounts = client_account_list?.filter(w => w.account_category === 'wallet');
+    const wallet_accounts = session.accounts.filter(w => w.account_category === 'wallet');
     let wallet_migration_status = WalletMigrationStatus.InEligible;
 
     if (session.wallet_migration_config) {
