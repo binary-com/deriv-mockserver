@@ -1,86 +1,20 @@
 import { AuthorizeRequest } from '../types/authorize';
 import { InterceptedAPIHandler } from '../types/base';
-import { Account } from '../schema/account.schema';
+import { handleGenericError } from '../utils/error.utils';
 
 export const authorize = async ({ data, ws, session }: InterceptedAPIHandler) => {
-    const { req_id } = data as AuthorizeRequest;
-
-    const accounts: Account[] = [
-        {
-            account_type: 'trading',
-            created_at: 1664951196,
-            currency: 'USD',
-            is_disabled: 0,
-            is_virtual: 0,
-            landing_company_name: 'svg',
-            loginid: 'CR4529478',
-            trading: {},
-        },
-        {
-            account_type: 'trading',
-            created_at: 1670903526,
-            currency: 'LTC',
-            is_disabled: 0,
-            is_virtual: 0,
-            landing_company_name: 'svg',
-            loginid: 'CR4826884',
-            trading: {},
-        },
-        {
-            account_type: 'trading',
-            created_at: 1672110947,
-            currency: 'ETH',
-            is_disabled: 0,
-            is_virtual: 0,
-            landing_company_name: 'svg',
-            loginid: 'CR4876712',
-            trading: {},
-        },
-        {
-            account_type: 'trading',
-            created_at: 1672201567,
-            currency: 'USDC',
-            is_disabled: 0,
-            is_virtual: 0,
-            landing_company_name: 'svg',
-            loginid: 'CR4880846',
-            trading: {},
-        },
-        {
-            account_type: 'trading',
-            created_at: 1672201577,
-            currency: 'eUSDT',
-            is_disabled: 0,
-            is_virtual: 0,
-            landing_company_name: 'svg',
-            loginid: 'CR4880847',
-            trading: {},
-        },
-        {
-            account_type: 'trading',
-            created_at: 1672201590,
-            currency: 'BTC',
-            is_disabled: 0,
-            is_virtual: 0,
-            landing_company_name: 'svg',
-            loginid: 'CR4880849',
-            trading: {},
-        },
-        {
-            account_type: 'trading',
-            created_at: 1664784824,
-            currency: 'USD',
-            is_disabled: 0,
-            is_virtual: 1,
-            landing_company_name: 'virtual',
-            loginid: 'VRTC6817101',
-            trading: {},
-        },
-    ];
+    const { authorize, req_id } = data as AuthorizeRequest;
+    const matching_account = session.getAccountByToken(authorize);
+    if (!matching_account) {
+        return handleGenericError('invalid_token', 'Invalid token.', ws, {
+            authorize: '<not shown>',
+            req_id,
+        });
+    }
 
     const response = {
         authorize: {
-            account_list: accounts,
+            account_list: session.accounts,
             balance: 10046.18,
             country: 'id',
             currency: 'USD',
@@ -109,6 +43,5 @@ export const authorize = async ({ data, ws, session }: InterceptedAPIHandler) =>
         req_id,
     };
 
-    session.addAccounts(accounts);
     ws.send(JSON.stringify(response));
 };
