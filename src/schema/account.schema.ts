@@ -30,5 +30,15 @@ export const account_schema = z
         linked_account: linked_account_schema,
         trading: z.any().optional(),
         token: z.string().optional(),
+        // Full Account Details
+        balance: z.number(),
+        email: z.string(),
+        fullname: z.string(),
+        landing_company_fullname: z.string(),
+        local_currencies: z.any(),
+        preferred_language: z.string(),
+        scopes: z.array(z.string().regex(/(read|trade|trading_information|payments|admin)/)),
+        upgradeable_landing_companies: z.array(z.string().regex(/(bvi|labuan|malta|maltainvest|svg|vanuatu)/)),
+        user_id: z.string(),
     })
     .partial();

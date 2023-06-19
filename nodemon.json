@@ -1,7 +1,7 @@
 {
-  "watch": ["src"],
-  "ignore": ["src/**/*.test.ts", "node_modules"],
-  "ext": "ts,json",
-  "exec": "etsc && node ./dist/index.js",
-  "legacyWatch": true
+    "watch": ["src"],
+    "ignore": ["src/**/*.test.ts", "node_modules"],
+    "ext": "ts,json",
+    "exec": "ts-node -- src/index.ts",
+    "legacyWatch": true
 }

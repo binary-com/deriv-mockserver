@@ -1,4 +1,4 @@
-import { getMatchingKeys } from '../utils/object.utils';
+import { getFirstMatchingKey } from '../utils/object.utils';
 import { intercepted_endpoints } from '../config/intercepted-endpoints.config';
 import { authorize } from '../api/authorize.api';
 import { transaction } from '../api/transaction.api';
@@ -9,7 +9,7 @@ import { InterceptedAPIHandler } from '../types/base';
 import { getAccountStatus } from '../api/get-account-status.api';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
-    const endpoint_type = getMatchingKeys(
+    const endpoint_type = getFirstMatchingKey(
         intercepted_args.data,
         intercepted_endpoints
     ) as (typeof intercepted_endpoints)[number];

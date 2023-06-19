@@ -1,0 +1,15 @@
+{
+    "session_id": "default",
+    "accounts": [
+        {
+            "account_type": "trading",
+            "created_at": 1664784824,
+            "currency": "USD",
+            "is_disabled": 0,
+            "is_virtual": 1,
+            "landing_company_name": "virtual",
+            "loginid": "VRTC6817101",
+            "trading": {}
+        }
+    ]
+}

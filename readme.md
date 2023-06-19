@@ -25,7 +25,7 @@ To push your custom data to the mock server, you will need to add the `generate_
 ```json
 {
     "generate_mock": "1",
-    "action": "create" // create | update | delete
+    "action": "create" // create | update | delete | read
 }
 ```
 
