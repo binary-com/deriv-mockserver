@@ -37,8 +37,10 @@ export const account_schema = z
         landing_company_fullname: z.string(),
         local_currencies: z.any(),
         preferred_language: z.string(),
+        landing_company_shortcode: z.string(),
         scopes: z.array(z.string().regex(/(read|trade|trading_information|payments|admin)/)),
         upgradeable_landing_companies: z.array(z.string().regex(/(bvi|labuan|malta|maltainvest|svg|vanuatu)/)),
         user_id: z.string(),
+        accepted_bch: z.string(),
     })
     .partial();

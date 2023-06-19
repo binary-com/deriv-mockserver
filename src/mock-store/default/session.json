@@ -5,11 +5,17 @@
             "account_type": "trading",
             "created_at": 1664784824,
             "currency": "USD",
+            "balance": 1003,
             "is_disabled": 0,
             "is_virtual": 1,
             "landing_company_name": "virtual",
+            "landing_company_shortcode": "virtual",
             "loginid": "VRTC6817101",
-            "trading": {}
+            "trading": {},
+            "email": "test@test.com",
+            "excluded_until": "",
+            "session_start": 1687144472,
+            "accepted_bch": 0
         }
     ]
 }
