@@ -20,6 +20,7 @@ export const walletMigrationConfig = async ({ data, ws, session }: InterceptedAP
                 wallet_migration_config: 1,
                 echo_req: data,
                 msg_type: 'wallet_migration_config',
+                req_id: data.req_id,
             })
         );
     } catch (e) {
