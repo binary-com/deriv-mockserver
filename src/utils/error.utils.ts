@@ -1,5 +1,5 @@
 import { WebSocket } from 'ws';
-import { ErrorResponse } from '../types/base';
+import { ErrorResponse } from '../types/base.type';
 
 export type Error = {
     id: string;

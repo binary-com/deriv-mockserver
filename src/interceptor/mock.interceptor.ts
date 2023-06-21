@@ -5,7 +5,7 @@ import { transaction } from '../api/transaction.api';
 import { walletMigration } from '../api/wallet-migration.api';
 import { derivWSProxy } from './deriv-ws-proxy';
 import { statement } from '../api/statement.api';
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 import { getAccountStatus } from '../api/get-account-status.api';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
@@ -34,6 +34,9 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'new_account_wallet':
         case 'get_available_accounts_to_transfer':
         case 'transfer_between_accounts':
+        case 'get_financial_assessment':
+        case 'mt5_login_list':
+        case 'platform':
             return;
         case 'wallet_migration':
             return await walletMigration(intercepted_args);

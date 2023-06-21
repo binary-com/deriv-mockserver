@@ -1,6 +1,6 @@
 import { ZodError } from 'zod';
 import { wallet_migration_config_schema } from '../schema/wallet.schema';
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 import { WalletMigrationConfigRequest } from '../types/wallet-migration';
 import { handleGenericError } from '../utils/error.utils';
 

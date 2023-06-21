@@ -1,5 +1,5 @@
 import { Account, LinkedAccount } from '../schema/account.schema';
-import { GenericRequest, GenericResponse } from './base';
+import { GenericRequest, GenericResponse } from './base.type';
 
 export enum AccountCategory {
     Trading = 'trading',

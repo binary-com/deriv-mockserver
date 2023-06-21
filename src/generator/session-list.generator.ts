@@ -1,5 +1,5 @@
 import SessionStore from '../store/session.store';
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 
 export const sessionList = ({ data, ws, session }: InterceptedAPIHandler) => {
     const { req_id } = data;

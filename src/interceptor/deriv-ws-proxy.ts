@@ -1,4 +1,4 @@
-import { GenericRequest, InterceptedAPIHandler } from '../types/base';
+import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
 
 export const derivWSProxy = async ({ data, ws, session }: InterceptedAPIHandler) => {
     const { deriv_api } = session;

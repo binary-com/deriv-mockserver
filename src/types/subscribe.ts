@@ -1,4 +1,4 @@
-import type { GenericResponse } from './base';
+import type { GenericResponse } from './base.type';
 
 export type SubscribeRequest = {
     subscribe: number;

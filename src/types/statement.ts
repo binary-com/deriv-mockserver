@@ -1,4 +1,4 @@
-import { GenericRequest, GenericResponse } from './base';
+import { GenericRequest, GenericResponse } from './base.type';
 
 export enum StatementAction {
     Buy = 'buy',

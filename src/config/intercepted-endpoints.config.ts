@@ -15,4 +15,7 @@ export const intercepted_endpoints = [
     'get_account_status',
     'proposal_open_contract',
     'wallet_migration',
+    'get_financial_assessment',
+    'mt5_login_list',
+    'platform',
 ] as const;

@@ -1,4 +1,4 @@
-import { GenericResponse } from './base';
+import { GenericResponse } from './base.type';
 
 export enum TransactionAction {
     Buy = 'buy',

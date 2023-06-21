@@ -1,5 +1,5 @@
 import { Account } from '../schema/account.schema';
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 import { WalletMigrationResponse, WalletMigrationStatus, WalletRequest } from '../types/wallet-migration';
 
 export const walletMigration = ({ data, ws, session }: InterceptedAPIHandler) => {
