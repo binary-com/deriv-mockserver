@@ -6,6 +6,11 @@ export interface InterceptedAPIHandler {
     ws: WebSocket;
     session: Session;
 }
+
+export interface GenericSubscribeRequest extends GenericRequest {
+    subscribe: number;
+}
+
 export interface GenericRequest {
     session_id: string;
     req_id: number;

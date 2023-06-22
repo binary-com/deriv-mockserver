@@ -19,3 +19,5 @@ export const createDerivWSInstance = (): DerivApi => {
 
     return new DerivAPIBasic({ connection: deriv_ws });
 };
+
+export const global_deriv_api = createDerivWSInstance();
