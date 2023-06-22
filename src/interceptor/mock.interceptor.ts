@@ -3,10 +3,10 @@ import { intercepted_endpoints } from '../config/intercepted-endpoints.config';
 import { authorize } from '../api/authorize.api';
 import { transaction } from '../api/transaction.api';
 import { walletMigration } from '../api/wallet-migration.api';
-import { derivWSProxy } from './deriv-ws-proxy';
 import { statement } from '../api/statement.api';
 import { InterceptedAPIHandler } from '../types/base.type';
 import { getAccountStatus } from '../api/get-account-status.api';
+import { handleGenericError } from '../utils/error.utils';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -41,6 +41,11 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'wallet_migration':
             return await walletMigration(intercepted_args);
         default:
-            return await derivWSProxy(intercepted_args);
+            return handleGenericError(
+                'invalid_input',
+                'Invalid generate_mock endpoint.',
+                intercepted_args.ws,
+                intercepted_args.data
+            );
     }
 };

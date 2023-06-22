@@ -1,8 +1,12 @@
-import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
+import { DerivApi } from '../config/deriv-api.config';
+import { GenericSubscribeRequest, InterceptedAPIHandler } from '../types/base.type';
 
-export const derivWSProxy = async ({ data, ws, session }: InterceptedAPIHandler) => {
-    const { deriv_api } = session;
-    const { session_id, ...forwarded_data } = data as GenericRequest & { subscribe: number };
+export const proxyInterceptor = async ({
+    data,
+    ws,
+    deriv_api,
+}: Omit<InterceptedAPIHandler, 'session'> & { deriv_api: DerivApi }) => {
+    const { session_id, ...forwarded_data } = data as GenericSubscribeRequest;
     const { subscribe } = forwarded_data;
 
     if (subscribe === 1) {
