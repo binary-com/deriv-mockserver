@@ -36,6 +36,5 @@ export const loginGenerator = ({ ws, session, data }: InterceptedAPIHandler) => 
     });
 
     const response = { echo_req: data, ...account_object, active_loginid: session.active_account.loginid, req_id };
-
-    return ws.send(JSON.stringify(response));
+    ws.send(JSON.stringify(response));
 };

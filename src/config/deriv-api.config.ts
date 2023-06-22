@@ -8,6 +8,8 @@ export type DerivApi = {
     send: <T extends object>(...requestData: unknown[]) => Promise<T>;
     subscribe: <T extends object>(...requestData: unknown[]) => Observable<T>;
     authorize: (requestData: AuthorizeRequest) => Promise<AuthorizeResponse>;
+    reconnect: () => void;
+    keepAlivePing: () => void;
 };
 
 /**

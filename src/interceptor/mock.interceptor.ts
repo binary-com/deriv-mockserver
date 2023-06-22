@@ -25,6 +25,7 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
             return await getAccountStatus(intercepted_args);
         case 'get_settings':
         case 'topup_virtual':
+        case 'account_security':
         case 'balance':
         case 'forget_all':
         case 'portfolio':
@@ -32,10 +33,14 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'new_account_real':
         case 'new_account_virtual':
         case 'new_account_wallet':
+        case 'get_self_exclusion':
         case 'get_available_accounts_to_transfer':
         case 'transfer_between_accounts':
         case 'get_financial_assessment':
+        case 'trading_platform_accounts':
+        case 'trading_platform_available_accounts':
         case 'mt5_login_list':
+        case 'p2p_order_list':
         case 'platform':
             return;
         case 'wallet_migration':
