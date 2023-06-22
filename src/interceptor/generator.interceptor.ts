@@ -2,7 +2,7 @@ import { generator_endpoints } from '../config/generator-endpoints.config';
 import { handleGenericError } from '../utils/error.utils';
 import { getFirstMatchingKey } from '../utils/object.utils';
 import { walletMigrationConfig } from '../generator/wallet-migration-config.generator';
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 import { loginGenerator } from '../generator/login.generator';
 import { sessionList } from '../generator/session-list.generator';
 

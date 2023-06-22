@@ -2,7 +2,7 @@ import { RawData, WebSocket } from 'ws';
 import { generatorInterceptor } from './generator.interceptor';
 import { mockInterceptor } from './mock.interceptor';
 import { handleGenericError } from '../utils/error.utils';
-import { ParsedRequestData } from '../types/base';
+import { ParsedRequestData } from '../types/base.type';
 import SessionStore from '../store/session.store';
 
 export const onMessageHandler = (data: RawData, ws: WebSocket) => {

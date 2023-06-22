@@ -1,4 +1,4 @@
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 
 export const loginGenerator = ({ ws, session, data }: InterceptedAPIHandler) => {
     const { req_id } = data;

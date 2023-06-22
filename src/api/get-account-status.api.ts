@@ -1,4 +1,4 @@
-import { InterceptedAPIHandler } from '../types/base';
+import { InterceptedAPIHandler } from '../types/base.type';
 
 export const getAccountStatus = ({ data, ws }: InterceptedAPIHandler) => {
     const { req_id } = data;

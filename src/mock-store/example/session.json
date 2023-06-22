@@ -17,5 +17,8 @@
             "session_start": 1664783824,
             "accepted_bch": 0
         }
-    ]
+    ],
+    "wallet_migration_config": {
+        "status": "failed"
+    }
 }

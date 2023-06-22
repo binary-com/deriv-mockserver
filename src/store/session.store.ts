@@ -49,6 +49,7 @@ export class Session implements SerializableEntity {
         if (matching_account) {
             this.active_account = matching_account;
         }
+        return matching_account;
     }
 
     addAccounts(accounts: Account[]) {

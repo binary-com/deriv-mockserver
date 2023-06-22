@@ -1,6 +1,6 @@
 import { Account } from '../schema/account.schema';
 import { WalletMigrationConfig } from '../schema/wallet.schema';
-import { GenericRequest, GenericResponse } from './base';
+import { GenericRequest, GenericResponse } from './base.type';
 
 export interface WalletMigrationConfigRequest extends GenericRequest {
     wallet_migration_config: WalletMigrationConfig;
