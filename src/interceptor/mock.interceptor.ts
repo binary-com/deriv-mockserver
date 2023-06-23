@@ -7,6 +7,7 @@ import { statement } from '../api/statement.api';
 import { InterceptedAPIHandler } from '../types/base.type';
 import { getAccountStatus } from '../api/get-account-status.api';
 import { handleGenericError } from '../utils/error.utils';
+import { proxyInterceptor } from './proxy.interceptor';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -29,6 +30,7 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'balance':
         case 'forget_all':
         case 'portfolio':
+        case 'contracts_for':
         case 'proposal_open_contract':
         case 'new_account_real':
         case 'new_account_virtual':
@@ -46,11 +48,6 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'wallet_migration':
             return await walletMigration(intercepted_args);
         default:
-            return handleGenericError(
-                'invalid_input',
-                'Invalid generate_mock endpoint.',
-                intercepted_args.ws,
-                intercepted_args.data
-            );
+            return await proxyInterceptor(intercepted_args);
     }
 };
