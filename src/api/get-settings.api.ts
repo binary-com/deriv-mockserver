@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
 
 export const getSettings = ({ data, ws }: InterceptedAPIHandler) => {
@@ -22,7 +23,7 @@ export const getSettings = ({ data, ws }: InterceptedAPIHandler) => {
             country_code: 'id',
             date_of_birth: 946944000,
             dxtrade_user_exception: 0,
-            email: 'yashim+chicken1@deriv.com',
+            email: 'test@test.com',
             email_consent: 0,
             feature_flag: {
                 wallet: 0,
@@ -42,7 +43,7 @@ export const getSettings = ({ data, ws }: InterceptedAPIHandler) => {
             tax_identification_number: '121292912920111',
             tax_residence: 'id',
             trading_hub: 1,
-            user_hash: '180129f10618c2acdfdf60da326a9e39ad4df2d5ac57f84c3a65375887e3f1f8',
+            user_hash: uuidv4(),
         },
         msg_type: 'get_settings',
         req_id,
