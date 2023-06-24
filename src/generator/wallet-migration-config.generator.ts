@@ -5,9 +5,10 @@ import { WalletMigrationConfigRequest } from '../types/wallet-migration';
 import { handleGenericError } from '../utils/error.utils';
 
 export const walletMigrationConfig = async ({ data, ws, session }: InterceptedAPIHandler) => {
-    const { status, has_real_usd_account, has_p2p_account, has_used_pa_last_3months, is_payment_agent } = (
-        data as WalletMigrationConfigRequest
-    ).wallet_migration_config;
+    const { wallet_migration_config, req_id } = data as WalletMigrationConfigRequest;
+
+    const { status, has_real_usd_account, has_p2p_account, has_used_pa_last_3months, is_payment_agent } =
+        wallet_migration_config;
 
     const wallet_config = { status, has_real_usd_account, has_p2p_account, has_used_pa_last_3months, is_payment_agent };
 
@@ -20,7 +21,7 @@ export const walletMigrationConfig = async ({ data, ws, session }: InterceptedAP
                 wallet_migration_config: 1,
                 echo_req: data,
                 msg_type: 'wallet_migration_config',
-                req_id: data.req_id,
+                req_id,
             })
         );
     } catch (e) {

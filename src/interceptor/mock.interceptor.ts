@@ -8,6 +8,7 @@ import { InterceptedAPIHandler } from '../types/base.type';
 import { getAccountStatus } from '../api/get-account-status.api';
 import { handleGenericError } from '../utils/error.utils';
 import { proxyInterceptor } from './proxy.interceptor';
+import { balance } from '../api/balance.api';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -28,6 +29,7 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'topup_virtual':
         case 'account_security':
         case 'balance':
+            return await balance(intercepted_args);
         case 'forget_all':
         case 'portfolio':
         case 'contracts_for':

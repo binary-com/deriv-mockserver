@@ -1,94 +1,91 @@
+import { v4 as uuidv4 } from 'uuid';
 import { InterceptedAPIHandler } from '../types/base.type';
+import { BalanceRequest, BalanceResponse } from '../types/balance.type';
+
+const getBalanceKey = (platform: string, is_virtual: boolean) => {
+    if (platform === 'deriv') {
+        return is_virtual ? 'deriv_demo' : 'deriv';
+    } else {
+        return is_virtual ? 'mt5_demo' : 'mt5';
+    }
+};
 
 export const balance = async ({ data, ws, session }: InterceptedAPIHandler) => {
-    const { subscribe } = data;
+    const { account = 'current', subscribe, req_id } = data as BalanceRequest;
 
     if (subscribe === 1) {
-        const response_specific = {
-            balance: { balance: 0, currency: 'USD', id: '68bb85d5-2070-1e79-b3b1-4a374149acfc', loginid: 'CR4529478' },
-            echo_req: { account: 'CR4529478', balance: 1, req_id: 5, subscribe: 1 },
-            msg_type: 'balance',
-            req_id: 5,
-            subscription: { id: '68bb85d5-2070-1e79-b3b1-4a374149acfc' },
-        };
+        if (account === 'all') {
+            const unique_id = uuidv4();
+            let account_balance_obj: Record<string, any> = {};
+            let total_balance = {
+                deriv: 0,
+                deriv_demo: 0,
+                mt5: 0,
+                mt5_demo: 0,
+            };
 
-        const response_all = {
-            balance: {
-                accounts: {
-                    CR4529478: {
-                        balance: 0,
+            session.accounts.forEach(a => {
+                const { loginid, balance = 0, currency, is_virtual, is_disabled, platform = 'deriv' } = a;
+                if (loginid) {
+                    account_balance_obj[loginid] = {
+                        balance: balance,
                         converted_amount: 0,
-                        currency: 'USD',
-                        demo_account: 0,
-                        status: 1,
+                        currency: currency || 'USD',
+                        demo_account: is_virtual || 0,
+                        status: is_disabled || 1,
                         type: 'deriv',
-                    },
-                    CR4826884: {
-                        balance: 0,
-                        converted_amount: 0,
-                        currency: 'LTC',
-                        demo_account: 0,
-                        status: 1,
-                        type: 'deriv',
-                    },
-                    CR4876712: {
-                        balance: 0,
-                        converted_amount: 0,
-                        currency: 'ETH',
-                        demo_account: 0,
-                        status: 1,
-                        type: 'deriv',
-                    },
-                    CR4880846: {
-                        balance: 0,
-                        converted_amount: 0,
-                        currency: 'USDC',
-                        demo_account: 0,
-                        status: 1,
-                        type: 'deriv',
-                    },
-                    CR4880847: {
-                        balance: 0,
-                        converted_amount: 0,
-                        currency: 'eUSDT',
-                        demo_account: 0,
-                        status: 1,
-                        type: 'deriv',
-                    },
-                    CR4880849: {
-                        balance: 0,
-                        converted_amount: 0,
-                        currency: 'BTC',
-                        demo_account: 0,
-                        status: 1,
-                        type: 'deriv',
-                    },
-                    VRTC6817101: {
-                        balance: 10046.18,
-                        converted_amount: 10046.18,
-                        currency: 'USD',
-                        demo_account: 1,
-                        status: 1,
-                        type: 'deriv',
+                    };
+                }
+
+                const platform_key = getBalanceKey(platform, !!is_virtual);
+                total_balance[platform_key] += balance;
+            });
+
+            const { balance = 0, currency = 'usd', loginid = '' } = session.active_account;
+
+            const response: BalanceResponse<'all'> = {
+                balance: {
+                    accounts: account_balance_obj,
+                    balance,
+                    currency,
+                    id: unique_id,
+                    loginid,
+                    total: {
+                        deriv: { amount: total_balance.deriv, currency: 'USD' },
+                        deriv_demo: { amount: total_balance.deriv_demo, currency: 'USD' },
+                        mt5: { amount: total_balance.mt5, currency: 'USD' },
+                        mt5_demo: { amount: total_balance.mt5_demo, currency: 'USD' },
                     },
                 },
-                balance: 0,
-                currency: 'USD',
-                id: 'ce940799-28e6-bb47-169a-f1cb95e9eacf',
-                loginid: 'CR4529478',
-                total: {
-                    deriv: { amount: 0, currency: 'USD' },
-                    deriv_demo: { amount: 10046.18, currency: 'USD' },
-                    mt5: { amount: 0, currency: 'USD' },
-                    mt5_demo: { amount: 0, currency: 'USD' },
-                },
-            },
-            echo_req: { account: 'all', balance: 1, req_id: 4, subscribe: 1 },
-            msg_type: 'balance',
-            req_id: 4,
-            subscription: { id: 'ce940799-28e6-bb47-169a-f1cb95e9eacf' },
-        };
+                echo_req: { account, balance, req_id, subscribe },
+                msg_type: 'balance',
+                req_id,
+                subscription: { id: unique_id },
+            };
 
-        return response_all;
+            return ws.send(JSON.stringify(response));
+        }
+
+        const matching_account =
+            account === 'current' ? session.active_account : session.accounts.find(a => a.loginid === account);
+
+        if (matching_account) {
+            const unique_id = uuidv4();
+            const { balance = 0, currency = 'USD', loginid = '' } = matching_account;
+            const response: BalanceResponse<'specific'> = {
+                balance: {
+                    balance,
+                    currency,
+                    id: unique_id,
+                    loginid,
+                },
+                echo_req: { account, balance, req_id, subscribe },
+                msg_type: 'balance',
+                req_id,
+                subscription: { id: unique_id },
+            };
+
+            return ws.send(JSON.stringify(response));
+        }
     }
 };

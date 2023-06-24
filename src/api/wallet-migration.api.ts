@@ -42,13 +42,14 @@ const generateWalletMigrationResponse = ({
                   status,
               };
 
+    const { req_id } = data as WalletRequest;
     const reponse: WalletMigrationResponse = {
         echo_req: {
             ...(data as WalletRequest),
         },
         wallet_migration,
         msg_type: 'wallet_migration',
-        req_id: data.req_id,
+        req_id,
     };
 
     return reponse;

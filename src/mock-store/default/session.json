@@ -15,7 +15,8 @@
             "email": "test@test.com",
             "excluded_until": "",
             "session_start": 1687144472,
-            "accepted_bch": 0
+            "accepted_bch": 0,
+            "platform": "deriv"
         },
         {
             "account_type": "trading",
@@ -31,7 +32,8 @@
             "email": "test@test.com",
             "excluded_until": "",
             "session_start": 1687144472,
-            "accepted_bch": 0
+            "accepted_bch": 0,
+            "platform": "deriv"
         }
     ],
     "wallet_migration_config": {

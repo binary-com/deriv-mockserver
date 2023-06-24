@@ -1,7 +1,7 @@
-import { InterceptedAPIHandler } from '../types/base.type';
+import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
 
 export const loginGenerator = ({ ws, session, data }: InterceptedAPIHandler) => {
-    const { req_id } = data;
+    const { req_id } = data as GenericRequest;
     let account_object: Record<string, any> = {};
     session.accounts.forEach(a => {
         const {
