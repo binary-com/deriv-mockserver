@@ -7,10 +7,7 @@ export const proxyInterceptor = async ({ data, ws, session }: InterceptedAPIHand
     if (subscribe === 1) {
         const subscription = await session.deriv_api.subscribe({ ...forwarded_data });
         subscription.subscribe({
-            next: data => {
-                console.log(data);
-                ws.send(JSON.stringify(data));
-            },
+            next: data => ws.send(JSON.stringify(data)),
             error: error => ws.send(JSON.stringify(error)),
         });
     } else {
