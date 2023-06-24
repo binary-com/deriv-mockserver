@@ -12,6 +12,7 @@ import { mt5LoginList } from '../api/mt5-login-list.api';
 import { tradingPlatformAvailableAccounts } from '../api/trading-platform-available-accounts.api';
 import { tradingServers } from '../api/trading-servers.api';
 import { getSettings } from '../api/get-settings.api';
+import { payoutCurrencies } from '../api/payout-currencies.api';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -40,11 +41,11 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
             return await mt5LoginList(intercepted_args);
         case 'wallet_migration':
             return await walletMigration(intercepted_args);
+        case 'payout_currencies':
+            return await payoutCurrencies(intercepted_args);
         case 'topup_virtual':
         case 'account_security':
-        case 'forget_all':
         case 'portfolio':
-        case 'contracts_for':
         case 'get_limits':
         case 'proposal_open_contract':
         case 'new_account_real':
