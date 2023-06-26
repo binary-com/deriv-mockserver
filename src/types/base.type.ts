@@ -2,7 +2,7 @@ import { WebSocket } from 'ws';
 import { Session } from '../store/session.store';
 
 export interface InterceptedAPIHandler {
-    data: ParsedRequestData;
+    data: object;
     ws: WebSocket;
     session: Session;
 }
@@ -16,7 +16,9 @@ export interface GenericRequest {
     req_id: number;
 }
 
-export type ParsedRequestData = GenericRequest & Record<string, any>;
+export interface GenericSubscribeResponse<T> extends GenericResponse<T> {
+    subscription: { id: string };
+}
 
 export interface GenericResponse<T> {
     echo_req: T & {

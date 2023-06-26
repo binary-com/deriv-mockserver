@@ -32,6 +32,7 @@ export const account_schema = z
         token: z.string().optional(),
         // Full Account Details
         balance: z.number(),
+        platform: z.string(),
         email: z.string(),
         fullname: z.string(),
         landing_company_fullname: z.string(),

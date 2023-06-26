@@ -12,10 +12,11 @@
             "landing_company_shortcode": "virtual",
             "loginid": "VRTC6817101",
             "trading": {},
-            "email": "test@test.com",
+            "email": "example@test.com",
             "excluded_until": "",
             "session_start": 1687144472,
-            "accepted_bch": 0
+            "accepted_bch": 0,
+            "platform": "deriv"
         },
         {
             "account_type": "trading",
@@ -28,10 +29,11 @@
             "landing_company_shortcode": "svg",
             "loginid": "CR4529478",
             "trading": {},
-            "email": "test@test.com",
+            "email": "example@test.com",
             "excluded_until": "",
             "session_start": 1687144472,
-            "accepted_bch": 0
+            "accepted_bch": 0,
+            "platform": "deriv"
         }
     ],
     "wallet_migration_config": {

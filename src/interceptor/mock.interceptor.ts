@@ -6,7 +6,13 @@ import { walletMigration } from '../api/wallet-migration.api';
 import { statement } from '../api/statement.api';
 import { InterceptedAPIHandler } from '../types/base.type';
 import { getAccountStatus } from '../api/get-account-status.api';
-import { handleGenericError } from '../utils/error.utils';
+import { proxyInterceptor } from './proxy.interceptor';
+import { balance } from '../api/balance.api';
+import { mt5LoginList } from '../api/mt5-login-list.api';
+import { tradingPlatformAvailableAccounts } from '../api/trading-platform-available-accounts.api';
+import { tradingServers } from '../api/trading-servers.api';
+import { getSettings } from '../api/get-settings.api';
+import { payoutCurrencies } from '../api/payout-currencies.api';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -24,28 +30,35 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'get_account_status':
             return await getAccountStatus(intercepted_args);
         case 'get_settings':
-        case 'topup_virtual':
+            return await getSettings(intercepted_args);
         case 'balance':
-        case 'forget_all':
+            return await balance(intercepted_args);
+        case 'trading_servers':
+            return await tradingServers(intercepted_args);
+        case 'trading_platform_available_accounts':
+            return await tradingPlatformAvailableAccounts(intercepted_args);
+        case 'mt5_login_list':
+            return await mt5LoginList(intercepted_args);
+        case 'wallet_migration':
+            return await walletMigration(intercepted_args);
+        case 'payout_currencies':
+            return await payoutCurrencies(intercepted_args);
+        case 'topup_virtual':
+        case 'account_security':
         case 'portfolio':
+        case 'get_limits':
         case 'proposal_open_contract':
         case 'new_account_real':
         case 'new_account_virtual':
         case 'new_account_wallet':
+        case 'get_self_exclusion':
         case 'get_available_accounts_to_transfer':
         case 'transfer_between_accounts':
+        case 'p2p_order_list':
         case 'get_financial_assessment':
-        case 'mt5_login_list':
-        case 'platform':
+        case 'trading_platform_accounts':
             return;
-        case 'wallet_migration':
-            return await walletMigration(intercepted_args);
         default:
-            return handleGenericError(
-                'invalid_input',
-                'Invalid generate_mock endpoint.',
-                intercepted_args.ws,
-                intercepted_args.data
-            );
+            return await proxyInterceptor(intercepted_args);
     }
 };

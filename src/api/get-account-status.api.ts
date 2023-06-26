@@ -1,7 +1,7 @@
-import { InterceptedAPIHandler } from '../types/base.type';
+import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
 
 export const getAccountStatus = ({ data, ws }: InterceptedAPIHandler) => {
-    const { req_id } = data;
+    const { req_id } = data as GenericRequest;
 
     const response = {
         echo_req: data,

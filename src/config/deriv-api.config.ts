@@ -1,13 +1,17 @@
 import WebSocket from 'ws';
 // @ts-ignore
 import DerivAPIBasic from '@deriv/deriv-api/dist/DerivAPIBasic';
-import { AuthorizeRequest, AuthorizeResponse } from '@deriv/api-types';
 import { Observable } from 'rxjs';
 
 export type DerivApi = {
+    subscription_manager: {
+        streams_list: object[];
+    };
     send: <T extends object>(...requestData: unknown[]) => Promise<T>;
     subscribe: <T extends object>(...requestData: unknown[]) => Observable<T>;
-    authorize: (requestData: AuthorizeRequest) => Promise<AuthorizeResponse>;
+    reconnect: () => void;
+    keepAlivePing: () => void;
+    forgetAll: (types: object[]) => void;
 };
 
 /**
