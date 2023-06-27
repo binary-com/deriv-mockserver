@@ -12,6 +12,7 @@ export type DerivApi = {
     reconnect: () => void;
     keepAlivePing: () => void;
     forgetAll: (types: object[]) => void;
+    disconnect: () => void;
 };
 
 /**
