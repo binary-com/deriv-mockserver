@@ -81,6 +81,12 @@ export class SessionManager {
         return matching_session ? matching_session : this.createNewSession(session_id);
     }
 
+    reInitialize() {
+        this.sessions.forEach(s => s.deriv_api.disconnect());
+        this.sessions = [];
+        this.#loadPersistedSessions();
+    }
+
     #loadPersistedSessions() {
         const persisted_session_list = FileUtil.getPersistedSessionList();
         const loaded_sessions: Session[] = [];

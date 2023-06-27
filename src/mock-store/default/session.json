@@ -5,7 +5,7 @@
             "account_type": "trading",
             "created_at": 1664784824,
             "currency": "USD",
-            "balance": 4000,
+            "balance": 64.12,
             "is_disabled": 0,
             "is_virtual": 1,
             "landing_company_name": "virtual",

@@ -8,6 +8,15 @@ export const proxyInterceptor = async ({ data, ws, session }: InterceptedAPIHand
     if ('forget_all' in forwarded_data && Array.isArray(forwarded_data.forget_all)) {
         const unsubscribe_list = [...forwarded_data.forget_all];
         forwarded_data.forget_all = unsubscribe_list.filter(u => !intercepted_endpoints.includes(u));
+        if (!(forwarded_data.forget_all as string[]).length) {
+            return ws.send(
+                JSON.stringify({
+                    echo_req: { forwarded_data },
+                    forget_all: [],
+                    msg_type: 'forget_all',
+                })
+            );
+        }
     }
 
     if (subscribe === 1) {
