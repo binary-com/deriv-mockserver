@@ -2,7 +2,8 @@
     "session_id": "default",
     "accounts": [
         {
-            "account_type": "trading",
+            "account_category": "wallet",
+            "account_type": "virtual",
             "created_at": 1664784824,
             "currency": "USD",
             "balance": 40.12,
@@ -10,7 +11,7 @@
             "is_virtual": 1,
             "landing_company_name": "virtual",
             "landing_company_shortcode": "virtual",
-            "loginid": "VRTC6817101",
+            "loginid": "VRW142069",
             "trading": {},
             "email": "example@test.com",
             "excluded_until": "",
@@ -19,15 +20,16 @@
             "platform": "deriv"
         },
         {
-            "account_type": "trading",
-            "created_at": 1664784824,
+            "account_category": "trading",
+            "account_type": "standard",
+            "created_at": 1664785833,
             "currency": "USD",
             "balance": 69420.21,
             "is_disabled": 0,
             "is_virtual": 0,
             "landing_company_name": "svg",
             "landing_company_shortcode": "svg",
-            "loginid": "CR4529478",
+            "loginid": "CR90000009",
             "trading": {},
             "email": "example@test.com",
             "excluded_until": "",

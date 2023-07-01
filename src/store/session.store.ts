@@ -10,10 +10,6 @@ type StoredSessionData = {
     active_account: Account;
     wallet_migration_config: {
         status?: WalletMigrationStatus;
-        has_real_usd_account?: boolean;
-        has_p2p_account?: boolean;
-        has_used_pa_last_3months?: boolean;
-        is_payment_agent?: boolean;
     };
 };
 
