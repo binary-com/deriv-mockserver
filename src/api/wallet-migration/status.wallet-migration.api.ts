@@ -1,9 +1,10 @@
+import { Account } from '../../schema/account.schema';
 import { InterceptedAPIHandler } from '../../types/base.type';
 import { WalletMigrationResponse, WalletMigrationStatus, WalletRequest } from '../../types/wallet-migration';
 
 export const handleWalletMigrationStatus = ({ data, ws, session }: InterceptedAPIHandler) => {
     const { session_id, ...request } = data as WalletRequest;
-    let account_list;
+
     let wallet_migration_status = WalletMigrationStatus.InEligible;
 
     if (session.wallet_migration_config) {
@@ -13,17 +14,51 @@ export const handleWalletMigrationStatus = ({ data, ws, session }: InterceptedAP
         }
     }
 
+    let account_list: Partial<Account>[] = [];
     if (wallet_migration_status === WalletMigrationStatus.Eligible) {
+        account_list = generateAccountListInfo(session.accounts);
     }
 
     const response: WalletMigrationResponse = {
         echo_req: { ...request },
         wallet_migration: {
             status: wallet_migration_status,
+            account_list,
         },
         msg_type: 'wallet_migration',
         req_id: request.req_id,
     };
 
     return ws.send(JSON.stringify(response));
+};
+
+export const generateAccountListInfo = (accounts: Account[]): Account[] => {
+    const unique_currencies = new Set();
+    accounts.forEach(a => {
+        if (a.account_category === 'trading') {
+            unique_currencies.add(a.currency);
+        }
+    });
+    const currencies = Array.from(unique_currencies);
+    const account_list = currencies.map(c => {
+        return {
+            account_category: 'wallet',
+            account_type: 'doughflow',
+            platform: 'dwallet',
+            currency: c,
+            landing_company: 'svg',
+            link_accounts: accounts
+                .filter(a => a.currency === c)
+                .map(la => {
+                    return {
+                        loginid: la.loginid,
+                        account_category: 'trading',
+                        account_type: 'standard',
+                        platform: la.platform,
+                    };
+                }),
+        };
+    });
+
+    return account_list as Account[];
 };

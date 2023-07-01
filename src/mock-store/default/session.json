@@ -2,8 +2,8 @@
     "session_id": "default",
     "accounts": [
         {
-            "account_category": "wallet",
-            "account_type": "virtual",
+            "account_category": "trading",
+            "account_type": "standard",
             "created_at": 1664784824,
             "currency": "USD",
             "balance": 40.12,
@@ -35,7 +35,7 @@
             "excluded_until": "",
             "session_start": 1687144472,
             "accepted_bch": 0,
-            "platform": "deriv"
+            "platform": "dtrader"
         }
     ],
     "wallet_migration_config": {

@@ -13,13 +13,15 @@ export type LinkedAccount = z.infer<typeof linked_account_schema>;
 
 export const linked_account_schema = z.object({
     loginid: z.string(),
+    account_category: z.enum(['trading', 'wallet']),
+    account_type: z.string(),
     platform: z.nativeEnum(Platform),
 });
 
 export const account_schema = z
     .object({
         account_category: z.enum(['trading', 'wallet']),
-        account_type: z.enum(['trading', 'wallet']),
+        account_type: z.string(),
         created_at: z.number(),
         currency: z.string().regex(/\b[A-Za-z]{3,4}\b/),
         excluded_until: z.number(),
