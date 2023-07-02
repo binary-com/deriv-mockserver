@@ -14,7 +14,7 @@ export enum WalletMigrationStatus {
     InEligible = 'ineligible',
     Eligible = 'eligible',
     InProgress = 'in_progress',
-    Done = 'done',
+    Migrated = 'migrated',
     Failed = 'failed',
 }
 

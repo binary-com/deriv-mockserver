@@ -14,20 +14,21 @@ export const handleWalletMigrationStatus = ({ data, ws, session }: InterceptedAP
         }
     }
 
-    let account_list: Partial<Account>[] = [];
-    if (wallet_migration_status === WalletMigrationStatus.Eligible) {
-        account_list = generateAccountListInfo(session.accounts);
-    }
-
     const response: WalletMigrationResponse = {
         echo_req: { ...request },
         wallet_migration: {
             status: wallet_migration_status,
-            ...(account_list.length > 1 && { account_list }),
         },
         msg_type: 'wallet_migration',
         req_id: request.req_id,
     };
+
+    if (wallet_migration_status === WalletMigrationStatus.Eligible) {
+        const account_list = generateAccountListInfo(session.accounts);
+        if (account_list.length) {
+            response.wallet_migration.account_list = account_list;
+        }
+    }
 
     return ws.send(JSON.stringify(response));
 };
