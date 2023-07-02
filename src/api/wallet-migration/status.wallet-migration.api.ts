@@ -23,7 +23,7 @@ export const handleWalletMigrationStatus = ({ data, ws, session }: InterceptedAP
         echo_req: { ...request },
         wallet_migration: {
             status: wallet_migration_status,
-            account_list,
+            ...(account_list.length > 1 && { account_list }),
         },
         msg_type: 'wallet_migration',
         req_id: request.req_id,

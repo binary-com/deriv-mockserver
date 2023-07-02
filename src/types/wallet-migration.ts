@@ -7,7 +7,7 @@ export interface WalletMigrationConfigRequest extends GenericRequest {
 }
 
 export interface WalletRequest extends GenericRequest {
-    wallet_migration: 'status' | 'start';
+    wallet_migration: 'status' | 'start' | 'reset';
 }
 
 export enum WalletMigrationStatus {

@@ -21,7 +21,7 @@ export const authorize = async ({ data, ws, session }: InterceptedAPIHandler) =>
             country: 'id',
             currency,
             email,
-            fullname: '  ',
+            fullname: 'Test Name',
             is_virtual,
             landing_company_fullname: 'Deriv Limited',
             landing_company_name,
