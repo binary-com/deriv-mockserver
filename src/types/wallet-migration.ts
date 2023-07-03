@@ -7,18 +7,18 @@ export interface WalletMigrationConfigRequest extends GenericRequest {
 }
 
 export interface WalletRequest extends GenericRequest {
-    wallet_migration: 'status';
+    wallet_migration: 'status' | 'start' | 'reset';
 }
 
 export enum WalletMigrationStatus {
     InEligible = 'ineligible',
     Eligible = 'eligible',
     InProgress = 'in_progress',
-    Done = 'done',
+    Migrated = 'migrated',
     Failed = 'failed',
 }
 
-export interface WalletMigrationResponse extends GenericResponse<WalletRequest> {
+export interface WalletMigrationResponse extends GenericResponse<Omit<WalletRequest, 'session_id'>> {
     wallet_migration: {
         status: WalletMigrationStatus;
         account_list?: Account[];

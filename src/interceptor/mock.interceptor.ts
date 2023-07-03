@@ -2,7 +2,7 @@ import { getFirstMatchingKey } from '../utils/object.utils';
 import { intercepted_endpoints } from '../config/intercepted-endpoints.config';
 import { authorize } from '../api/authorize.api';
 import { transaction } from '../api/transaction.api';
-import { walletMigration } from '../api/wallet-migration.api';
+import { walletMigration } from '../api/wallet-migration';
 import { statement } from '../api/statement.api';
 import { InterceptedAPIHandler } from '../types/base.type';
 import { getAccountStatus } from '../api/get-account-status.api';
