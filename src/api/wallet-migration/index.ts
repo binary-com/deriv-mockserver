@@ -9,7 +9,7 @@ export const walletMigration = ({ data, ws, session }: InterceptedAPIHandler) =>
     const { wallet_migration } = data as WalletRequest;
 
     switch (wallet_migration) {
-        case 'status':
+        case 'state':
             return handleWalletMigrationStatus({ data, ws, session });
         case 'start':
             return handleStartWalletMigration({ data, ws, session });
