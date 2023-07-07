@@ -1,7 +1,7 @@
 import { InterceptedAPIHandler } from '../../types/base.type';
 import { WalletRequest } from '../../types/wallet-migration';
 import { handleGenericError } from '../../utils/error.utils';
-import { handleResetWalletMigration } from './reset.wallet-migration';
+import { handleResetWalletMigration } from './reset.wallet-migration.api';
 import { handleStartWalletMigration } from './start.wallet-migration.api';
 import { handleWalletMigrationStatus } from './status.wallet-migration.api';
 
@@ -16,6 +16,6 @@ export const walletMigration = ({ data, ws, session }: InterceptedAPIHandler) =>
         case 'reset':
             return handleResetWalletMigration({ data, ws, session });
         default:
-            return handleGenericError('input_validation', '', ws, data);
+            return handleGenericError('input_validation', 'Invalid wallet_migration value.', ws, data);
     }
 };

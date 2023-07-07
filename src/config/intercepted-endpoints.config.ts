@@ -4,6 +4,7 @@ export const intercepted_endpoints = [
     'balance',
     'forget_all',
     'get_account_status',
+    'get_account_types',
     'get_available_accounts_to_transfer',
     'get_financial_assessment',
     'get_self_exclusion',

@@ -13,6 +13,7 @@ import { tradingPlatformAvailableAccounts } from '../api/trading-platform-availa
 import { tradingServers } from '../api/trading-servers.api';
 import { getSettings } from '../api/get-settings.api';
 import { payoutCurrencies } from '../api/payout-currencies.api';
+import { getAccountTypes } from '../api/get-account-types';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -29,6 +30,8 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
             return await statement(intercepted_args);
         case 'get_account_status':
             return await getAccountStatus(intercepted_args);
+        case 'get_account_types':
+            return await getAccountTypes(intercepted_args);
         case 'get_settings':
             return await getSettings(intercepted_args);
         case 'balance':

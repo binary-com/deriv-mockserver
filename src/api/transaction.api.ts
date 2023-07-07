@@ -1,6 +1,6 @@
 import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
 
-export const transaction = ({ data, ws, session }: InterceptedAPIHandler) => {
+export const transaction = async ({ data, ws, session }: InterceptedAPIHandler) => {
     const { req_id } = data as GenericRequest;
 
     const response = {

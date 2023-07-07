@@ -1,6 +1,6 @@
 import { GenericRequest, InterceptedAPIHandler } from '../types/base.type';
 
-export const getAccountStatus = ({ data, ws }: InterceptedAPIHandler) => {
+export const getAccountStatus = async ({ data, ws }: InterceptedAPIHandler) => {
     const { req_id } = data as GenericRequest;
 
     const response = {
