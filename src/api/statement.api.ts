@@ -1,3 +1,3 @@
 import { InterceptedAPIHandler } from '../types/base.type';
 
-export const statement = ({}: InterceptedAPIHandler) => {};
+export const statement = async ({}: InterceptedAPIHandler) => {};
