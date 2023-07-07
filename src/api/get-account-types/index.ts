@@ -3,13 +3,13 @@ import { GetAccountTypesRequest } from './get-account-types.type';
 
 export const getAccountTypes = async ({ data, ws, session }: InterceptedAPIHandler) => {
     const default_landing_company = session.active_account.landing_company_shortcode;
-    const { get_account_types, company = default_landing_company } = data as GetAccountTypesRequest;
+    const { get_account_types, company = default_landing_company, req_id } = data as GetAccountTypesRequest;
 
     const response = {
         echo_req: {
-            company: 'svg',
-            get_account_types: 1,
-            req_id: 53,
+            company,
+            get_account_types,
+            req_id,
         },
         get_account_types: {
             trading: {
@@ -80,6 +80,8 @@ export const getAccountTypes = async ({ data, ws, session }: InterceptedAPIHandl
             },
         },
         msg_type: 'get_account_types',
-        req_id: 53,
+        req_id,
     };
+
+    ws.send(JSON.stringify(response));
 };
