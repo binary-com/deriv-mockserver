@@ -20,7 +20,7 @@ export enum WalletMigrationStatus {
 
 export interface WalletMigrationResponse extends GenericResponse<Omit<WalletRequest, 'session_id'>> {
     wallet_migration: {
-        status: WalletMigrationStatus;
+        state: WalletMigrationStatus;
         account_list?: Account[];
     };
 }
