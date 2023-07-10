@@ -10,7 +10,7 @@ export const handleStartWalletMigration = ({ data, ws, session }: InterceptedAPI
             const response: WalletMigrationResponse = {
                 echo_req: { ...request },
                 wallet_migration: {
-                    status: WalletMigrationStatus.InProgress,
+                    state: WalletMigrationStatus.InProgress,
                 },
                 msg_type: 'wallet_migration',
                 req_id: request.req_id,
