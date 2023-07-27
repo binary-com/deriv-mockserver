@@ -14,6 +14,7 @@ import { tradingServers } from '../api/trading-servers.api';
 import { getSettings } from '../api/get-settings.api';
 import { payoutCurrencies } from '../api/payout-currencies.api';
 import { getAccountTypes } from '../api/get-account-types';
+import { tradingPlatformAccounts } from '../api/trading-platform-accounts';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -60,7 +61,7 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'p2p_order_list':
         case 'get_financial_assessment':
         case 'trading_platform_accounts':
-            return;
+            return await tradingPlatformAccounts(intercepted_args);
         default:
             return await proxyInterceptor(intercepted_args);
     }
