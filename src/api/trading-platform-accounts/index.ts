@@ -6,7 +6,7 @@ export const tradingPlatformAccounts = async ({ data, ws }: InterceptedAPIHandle
     const { trading_platform_accounts, platform, req_id } = data as TradingPlatformAccountsRequest;
 
     if (platform === 'dxtrade') {
-        ws.send(
+        return ws.send(
             JSON.stringify({
                 echo_req: {
                     trading_platform_accounts,
