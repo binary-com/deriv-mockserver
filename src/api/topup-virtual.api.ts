@@ -11,6 +11,19 @@ export const topupVirtual = ({ data, ws, session }: InterceptedAPIHandler) => {
 
     const amount = 10000 - virtual_balance!;
 
+    if (!virtual_account) {
+        return ws.send(
+            JSON.stringify({
+                error: {
+                    code: 'VirtualAccountNotFound',
+                    message: 'No virtual account found.',
+                },
+                msg_type: 'topup_virtual',
+                req_id,
+            })
+        );
+    }
+
     const response = {
         echo_req: { req_id, topup_virtual },
         msg_type: 'topup_virtual',
@@ -21,8 +34,6 @@ export const topupVirtual = ({ data, ws, session }: InterceptedAPIHandler) => {
             currency: 'USD',
         },
     };
-
-    session.accounts.find(account => account.is_virtual === 1 && account.loginid?.startsWith('VRW'))!.balance = 10000;
-
+    virtual_account.balance = 10000;
     return ws.send(JSON.stringify(response));
 };
