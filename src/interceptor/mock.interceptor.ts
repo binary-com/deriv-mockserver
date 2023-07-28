@@ -15,6 +15,7 @@ import { getSettings } from '../api/get-settings.api';
 import { payoutCurrencies } from '../api/payout-currencies.api';
 import { getAccountTypes } from '../api/get-account-types';
 import { tradingPlatformAccounts } from '../api/trading-platform-accounts';
+import { topupVirtual } from '../api/topup-virtual.api';
 
 export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) => {
     const endpoint_type = getFirstMatchingKey(
@@ -48,6 +49,7 @@ export const mockInterceptor = async (intercepted_args: InterceptedAPIHandler) =
         case 'payout_currencies':
             return await payoutCurrencies(intercepted_args);
         case 'topup_virtual':
+            return await topupVirtual(intercepted_args);
         case 'account_security':
         case 'portfolio':
         case 'get_limits':
